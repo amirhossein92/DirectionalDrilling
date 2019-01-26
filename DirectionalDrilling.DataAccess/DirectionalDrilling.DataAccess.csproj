@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D252C16C-ABC2-4D9B-B5B5-E526FDAA4919}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DirectionalDrilling.DataAccess</RootNamespace>
+    <AssemblyName>DirectionalDrilling.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Company\CompanyService.cs" />
+    <Compile Include="Company\ICompanyService.cs" />
+    <Compile Include="PlatformRig\IPlatformRigService.cs" />
+    <Compile Include="PlatformRig\PlatformRigService.cs" />
+    <Compile Include="Platform\IPlatformService.cs" />
+    <Compile Include="Platform\PlatformService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rig\IRigService.cs" />
+    <Compile Include="Rig\RigService.cs" />
+    <Compile Include="SurveyItem\ISurveyItemService.cs" />
+    <Compile Include="SurveyItem\SurveyItemService.cs" />
+    <Compile Include="SurveyTieIn\ISurveyTieInService.cs" />
+    <Compile Include="SurveyTieIn\SurveyTieInService.cs" />
+    <Compile Include="Survey\ISurveyService.cs" />
+    <Compile Include="Survey\SurveyService.cs" />
+    <Compile Include="Wellbore\IWellboreService.cs" />
+    <Compile Include="Wellbore\WellboreService.cs" />
+    <Compile Include="Well\IWellService.cs" />
+    <Compile Include="Well\WellService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DirectionalDrilling.Model\DirectionalDrilling.Model.csproj">
+      <Project>{85bdc249-61fa-41e2-9df1-6a58cdfcac31}</Project>
+      <Name>DirectionalDrilling.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

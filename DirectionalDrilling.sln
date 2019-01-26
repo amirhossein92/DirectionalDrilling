@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectionalDrilling.UI", "DirectionalDrilling\DirectionalDrilling.UI.csproj", "{09F88BDC-E419-4356-A24C-435FC8BED7E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectionalDrilling.DataAccess", "DirectionalDrilling.DataAccess\DirectionalDrilling.DataAccess.csproj", "{D252C16C-ABC2-4D9B-B5B5-E526FDAA4919}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectionalDrilling.Model", "DirectionalDrilling.Model\DirectionalDrilling.Model.csproj", "{85BDC249-61FA-41E2-9DF1-6A58CDFCAC31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectionalDrilling.Tests", "DirectionalDrilling.Tests\DirectionalDrilling.Tests.csproj", "{7E767499-E4A2-4146-8340-5E328ED50623}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectionalDrilling.Console", "DirectionalDrilling.Console\DirectionalDrilling.Console.csproj", "{0F379AD6-C53E-488C-A19D-7CD024CC1D9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectionalDrilling.DataStorage", "DirectionalDrilling.DataStorage\DirectionalDrilling.DataStorage.csproj", "{F73D3650-3FFD-4C88-9EF3-4ACBDB5BD695}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09F88BDC-E419-4356-A24C-435FC8BED7E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09F88BDC-E419-4356-A24C-435FC8BED7E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09F88BDC-E419-4356-A24C-435FC8BED7E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09F88BDC-E419-4356-A24C-435FC8BED7E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D252C16C-ABC2-4D9B-B5B5-E526FDAA4919}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D252C16C-ABC2-4D9B-B5B5-E526FDAA4919}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D252C16C-ABC2-4D9B-B5B5-E526FDAA4919}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D252C16C-ABC2-4D9B-B5B5-E526FDAA4919}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85BDC249-61FA-41E2-9DF1-6A58CDFCAC31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85BDC249-61FA-41E2-9DF1-6A58CDFCAC31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85BDC249-61FA-41E2-9DF1-6A58CDFCAC31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85BDC249-61FA-41E2-9DF1-6A58CDFCAC31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E767499-E4A2-4146-8340-5E328ED50623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E767499-E4A2-4146-8340-5E328ED50623}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E767499-E4A2-4146-8340-5E328ED50623}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E767499-E4A2-4146-8340-5E328ED50623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F379AD6-C53E-488C-A19D-7CD024CC1D9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F379AD6-C53E-488C-A19D-7CD024CC1D9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F379AD6-C53E-488C-A19D-7CD024CC1D9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F379AD6-C53E-488C-A19D-7CD024CC1D9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F73D3650-3FFD-4C88-9EF3-4ACBDB5BD695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F73D3650-3FFD-4C88-9EF3-4ACBDB5BD695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F73D3650-3FFD-4C88-9EF3-4ACBDB5BD695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F73D3650-3FFD-4C88-9EF3-4ACBDB5BD695}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {65C2BF81-7452-4F03-957D-77F47E8EDC5C}
+	EndGlobalSection
+EndGlobal
