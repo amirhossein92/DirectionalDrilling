@@ -1,0 +1,19 @@
+﻿<Window x:Class="DirectionalDrilling.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DirectionalDrilling"
+        xmlns:view="clr-namespace:DirectionalDrilling.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="331.288" Width="818.441">
+    <Grid>
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center">THIS IS THE MAIN WINDOW</TextBlock>
+            <view:NavigationView DockPanel.Dock="Left" DataContext="{Binding NavigationViewModel}"  Width="200"></view:NavigationView>
+            <Rectangle Fill="OrangeRed"></Rectangle>
+        </DockPanel>
+
+
+    </Grid>
+</Window>

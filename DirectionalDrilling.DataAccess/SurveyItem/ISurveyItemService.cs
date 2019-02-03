@@ -8,5 +8,10 @@ namespace DirectionalDrilling.DataAccess.SurveyItem
 {
     public interface ISurveyItemService
     {
+        void Add(Model.Models.SurveyItem survey);
+        Model.Models.SurveyItem GetSurveyItemById(int id);
+        List<Model.Models.SurveyItem> GetSurveyItems();
+        void Update(Model.Models.SurveyItem surveyItem);
+        void Delete(Model.Models.SurveyItem surveyItem);
     }
 }

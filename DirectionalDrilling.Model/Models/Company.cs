@@ -81,5 +81,9 @@ namespace DirectionalDrilling.Model.Models
             }
         }
 
+        public override string ToString()
+        {
+            return _name;
+        }
     }
 }

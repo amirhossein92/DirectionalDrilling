@@ -58,9 +58,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DirectionalDrilling.DataStorage\DirectionalDrilling.DataStorage.csproj">
-      <Project>{f73d3650-3ffd-4c88-9ef3-4acbdb5bd695}</Project>
-      <Name>DirectionalDrilling.DataStorage</Name>
+    <ProjectReference Include="..\DirectionalDrilling.DataAccess\DirectionalDrilling.DataAccess.csproj">
+      <Project>{d252c16c-abc2-4d9b-b5b5-e526fdaa4919}</Project>
+      <Name>DirectionalDrilling.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\DirectionalDrilling.Model\DirectionalDrilling.Model.csproj">
       <Project>{85bdc249-61fa-41e2-9df1-6a58cdfcac31}</Project>

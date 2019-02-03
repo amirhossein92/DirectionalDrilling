@@ -8,5 +8,10 @@ namespace DirectionalDrilling.DataAccess.Rig
 {
     public interface IRigService
     {
+        void Add(Model.Models.Rig rig);
+        Model.Models.Rig GetRigById(int id);
+        List<Model.Models.Rig> GetRigs();
+        void Update(Model.Models.Rig rig);
+        void Delete(Model.Models.Rig rig);
     }
 }

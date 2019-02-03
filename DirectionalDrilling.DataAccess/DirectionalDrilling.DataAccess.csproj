@@ -31,7 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Company\CompanyService.cs" />
     <Compile Include="Company\ICompanyService.cs" />
+    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="PlatformRig\IPlatformRigService.cs" />
     <Compile Include="PlatformRig\PlatformRigService.cs" />
     <Compile Include="Platform\IPlatformService.cs" />
@@ -56,16 +64,25 @@
     <Compile Include="SurveyTieIn\SurveyTieInService.cs" />
     <Compile Include="Survey\ISurveyService.cs" />
     <Compile Include="Survey\SurveyService.cs" />
+    <Compile Include="UnitOfWork.cs" />
     <Compile Include="Wellbore\IWellboreService.cs" />
     <Compile Include="Wellbore\WellboreService.cs" />
     <Compile Include="Well\IWellService.cs" />
     <Compile Include="Well\WellService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DirectionalDrilling.DataStorage\DirectionalDrilling.DataStorage.csproj">
+      <Project>{f73d3650-3ffd-4c88-9ef3-4acbdb5bd695}</Project>
+      <Name>DirectionalDrilling.DataStorage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DirectionalDrilling.Model\DirectionalDrilling.Model.csproj">
       <Project>{85bdc249-61fa-41e2-9df1-6a58cdfcac31}</Project>
       <Name>DirectionalDrilling.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

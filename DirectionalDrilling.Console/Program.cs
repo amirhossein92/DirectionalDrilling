@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using DirectionalDrilling.DataAccess;
 using DirectionalDrilling.Model;
-using DirectionalDrilling.Model.Database;
 using DirectionalDrilling.Model.Models;
 using Survey = DirectionalDrilling.Model.Models.Survey;
 using Well = DirectionalDrilling.Model.Models.Well;
@@ -17,22 +17,15 @@ namespace DirectionalDrilling.Console
     {
         static void Main(string[] args)
         {
-            using (var context = new DirectionalDrillingContext())
+            UnitOfWork unitOfWork = new UnitOfWork();
+
+            foreach (var item in unitOfWork.WellService.GetWells())
             {
-                System.Console.WriteLine(context.Wells.Count());
+                System.Console.WriteLine(item.Name);
             }
+
+            System.Console.ReadKey();
         }
 
-        private static void LoadExampleData(DirectionalDrillingContext context)
-        {
-            var newPlatform = new Platform {Name = "PlatformA"};
-            var newWell = new Well {Name = "WellA", Platform = newPlatform};
-            var newWellbore = new Wellbore {Name = "WellboreA", Well = newWell};
-            var newSurvey = new Survey {VerticalSectionDirection = 0, Wellbore = newWellbore};
-            var newSurveyTieIn = new SurveyTieIn {MeasuredDepth = 100, Survey = newSurvey};
-
-            context.SurveyTieIns.Add(newSurveyTieIn);
-            context.SaveChanges();
-        }
     }
 }

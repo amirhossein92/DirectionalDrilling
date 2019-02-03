@@ -8,5 +8,10 @@ namespace DirectionalDrilling.DataAccess.Well
 {
     public interface IWellService
     {
+        void Add(Model.Models.Well well);
+        Model.Models.Well GetWellById(int id);
+        List<Model.Models.Well> GetWells();
+        void Update(Model.Models.Well well);
+        void Delete(Model.Models.Well well);
     }
 }
