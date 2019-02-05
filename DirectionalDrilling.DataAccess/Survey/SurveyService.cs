@@ -31,7 +31,7 @@ namespace DirectionalDrilling.DataAccess.Survey
 
         public Model.Models.Survey GetSurveyById(int id)
         {
-            return _context.Surveys.FirstOrDefault(item => item.Id == id);
+            return _context.Surveys.Find(id);
         }
 
         public List<Model.Models.Survey> GetSurveys()
@@ -53,6 +53,25 @@ namespace DirectionalDrilling.DataAccess.Survey
         {
             _context.Surveys.Remove(survey);
             _context.SaveChanges();
+        }
+
+        public string GetSurveyDescription(int id)
+        {
+            var survey = _context.Surveys
+                .Include("Wellbore.Well.Platform")
+                .FirstOrDefault(item => item.Id == id);
+            var wellboreName = "?";
+            var wellName = "?";
+            var platformName = "?";
+            if (survey != null)
+            {
+                wellboreName = survey.Wellbore.Name;
+                wellName = survey.Wellbore.Well.Name;
+                platformName = survey.Wellbore.Well.Platform.Name;
+                return $"Platform: {platformName}, Well: {wellName}, Wellbore: {wellboreName} - {survey.Name}";
+            }
+
+            return "No Valid Data Is Selected";
         }
     }
 }

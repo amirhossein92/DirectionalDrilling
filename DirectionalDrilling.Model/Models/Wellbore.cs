@@ -2,6 +2,10 @@
 {
     public class Wellbore : NotifyPropertyChanged
     {
+        public Wellbore()
+        {
+            
+        }
         /// <summary>
         /// Wellbore Id
         /// </summary>

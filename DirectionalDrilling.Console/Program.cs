@@ -19,6 +19,7 @@ namespace DirectionalDrilling.Console
         {
             UnitOfWork unitOfWork = new UnitOfWork();
 
+            unitOfWork.WellService.Add(new Well {Name = "New Well", PlatformId = 1});
             foreach (var item in unitOfWork.WellService.GetWells())
             {
                 System.Console.WriteLine(item.Name);

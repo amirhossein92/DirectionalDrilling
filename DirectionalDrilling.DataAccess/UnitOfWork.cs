@@ -24,7 +24,7 @@ namespace DirectionalDrilling.DataAccess
         public ICompanyService CompanyService {
             get
             {
-                if (CompanyService == null)
+                if (_companyService == null)
                 {
                     _companyService = new CompanyService(_context);
                 }
@@ -37,7 +37,7 @@ namespace DirectionalDrilling.DataAccess
         {
             get
             {
-                if (PlatformService == null)
+                if (_platformService == null)
                 {
                     _platformService = new PlatformService(_context);
                 }
@@ -50,7 +50,7 @@ namespace DirectionalDrilling.DataAccess
         {
             get
             {
-                if (PlatformRigService == null)
+                if (_platformRigService == null)
                 {
                     _platformRigService = new PlatformRigService(_context);
                 }
@@ -63,7 +63,7 @@ namespace DirectionalDrilling.DataAccess
         {
             get
             {
-                if (RigService == null)
+                if (_rigService == null)
                 {
                     _rigService = new RigService(_context);
                 }
@@ -76,7 +76,7 @@ namespace DirectionalDrilling.DataAccess
         {
             get
             {
-                if (SurveyService == null)
+                if (_surveyService == null)
                 {
                     _surveyService = new SurveyService(_context);
                 }
@@ -89,7 +89,7 @@ namespace DirectionalDrilling.DataAccess
         {
             get
             {
-                if (SurveyItemService == null)
+                if (_surveyItemService == null)
                 {
                     _surveyItemService = new SurveyItemService(_context);
                 }
@@ -98,11 +98,10 @@ namespace DirectionalDrilling.DataAccess
         }
 
         private ISurveyTieInService _surveyTieInService;
-        public ISurveyTieInService SurveyTieInService
-        {
+        public ISurveyTieInService SurveyTieInService{
             get
             {
-                if (SurveyTieInService == null)
+                if (_surveyTieInService == null)
                 {
                     _surveyTieInService = new SurveyTieInService(_context);
                 }
@@ -115,7 +114,7 @@ namespace DirectionalDrilling.DataAccess
         {
             get
             {
-                if (WellService == null)
+                if (_wellService == null)
                 {
                     _wellService = new WellService(_context);
                 }
@@ -128,7 +127,7 @@ namespace DirectionalDrilling.DataAccess
         {
             get
             {
-                if (WellboreService == null)
+                if (_wellboreService == null)
                 {
                     _wellboreService = new WellboreService(_context);
                 }

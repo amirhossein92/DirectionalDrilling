@@ -13,5 +13,6 @@ namespace DirectionalDrilling.DataAccess.Survey
         List<Model.Models.Survey> GetSurveys();
         void Update(Model.Models.Survey survey);
         void Delete(Model.Models.Survey survey);
+        string GetSurveyDescription(int id);
     }
 }
