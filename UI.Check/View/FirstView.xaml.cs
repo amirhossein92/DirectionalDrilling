@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DirectionalDrilling.UI.ViewModels;
-using Prism.Events;
 
-namespace DirectionalDrilling.UI.Views
+namespace UI.Check.View
 {
     /// <summary>
-    /// Interaction logic for SurveyItemGridView.xaml
+    /// Interaction logic for FirstView.xaml
     /// </summary>
-    public partial class SurveyItemGridView : UserControl
+    public partial class FirstView : UserControl
     {
-        public SurveyItemGridView(MainWindowViewModel mainWindowViewModel, IEventAggregator eventAggregator)
+        public FirstView()
         {
-            this.DataContext = new SurveyItemGridViewModel(mainWindowViewModel, eventAggregator);
             InitializeComponent();
         }
-    }}
+    }
+}

@@ -1,0 +1,30 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DirectionalDrilling.UI.UserControls.NewProjects.View"
+             xmlns:Models="clr-namespace:DirectionalDrilling.Model.Models;assembly=DirectionalDrilling.Model" x:Class="DirectionalDrilling.UI.UserControls.NewProjects.View.AddPlatfromView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Add Platform" HorizontalAlignment="Center" FontSize="24"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label VerticalAlignment="Center"
+                   Margin="3" HorizontalAlignment="Left"
+                   Content="Platform Name:"/>
+            <TextBox Width="200" VerticalAlignment="Center"
+                     Text="{Binding Platform.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" 
+                     HorizontalAlignment="Left"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+            <Button Content="Save" Margin="10" Command="{Binding SaveCommand}"/>
+            <Button Content="Cancel" Margin="10" Command="{Binding CancelCommand}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,75 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DirectionalDrilling.UI2"
+        xmlns:Custom="http://infragistics.com/Ribbon"
+        xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+        xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+        x:Class="DirectionalDrilling.UI.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <dxr:RibbonControl DockPanel.Dock="Top" Height="Auto" RibbonStyle="Office2010">
+            <dxr:RibbonDefaultPageCategory Caption="defaultCategory">
+                <dxr:RibbonPage Caption="Home">
+                    <dxr:RibbonPageGroup Caption="New Projects">
+                        <dxb:BarButtonItem Content="Platform" />
+                        <dxb:BarButtonItem Content="Well" />
+                        <dxb:BarButtonItem Content="Wellbore" />
+                    </dxr:RibbonPageGroup>
+                    <dxr:RibbonPageGroup Caption="Survey Management">
+                        <dxb:BarButtonItem Content="New Survey" />
+                        <dxb:BarButtonItem Content="Import Survey" />
+                        <dxb:BarCheckItem>
+                            <dxb:BarCheckItem.Content>
+                                <Run Foreground="LimeGreen" x:Name="ToggleBarCheckItemContent" Text="Lock Mode"/>
+                            </dxb:BarCheckItem.Content>
+                        </dxb:BarCheckItem>
+                        <dxb:BarButtonItem Content="Manage Survey" />
+                    </dxr:RibbonPageGroup>
+                    <dxr:RibbonPageGroup Caption="View">
+                        <dxb:BarButtonItem Content="Section View" />
+                        <dxb:BarButtonItem Content="Plan View" />
+                        <dxb:BarButtonItem Content="3D View" />
+                    </dxr:RibbonPageGroup>
+                    <dxr:RibbonPageGroup Caption="Schematic">
+                        <dxb:BarButtonItem Content="Well Profile"/>
+                    </dxr:RibbonPageGroup>
+                    <dxr:RibbonPageGroup Caption="Toolbar">
+                        <dxb:BarButtonItem Content="Insert"/>
+                        <dxb:BarButtonItem Content="Copy"/>
+                        <dxb:BarButtonItem Content="Paste"/>
+                        <dxb:BarEditItem Content="Unit: ">
+                            <dxb:BarEditItem.EditTemplate>
+                                <DataTemplate>
+                                    <ComboBox Name="UnitComboBox" ItemsSource="{Binding Unit}"></ComboBox>
+                                </DataTemplate>
+                            </dxb:BarEditItem.EditTemplate>
+                        </dxb:BarEditItem>
+                    </dxr:RibbonPageGroup>
+                </dxr:RibbonPage>
+            </dxr:RibbonDefaultPageCategory>
+        </dxr:RibbonControl>
+        <UserControl Grid.Row="1">
+            <Grid Name="SecondGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TabControl Name="TabControl" Grid.Column="1">
+                    <TabItem Header="WHAT" Content="YES"/>
+                    <TabItem Header="NO" Content="YENS"/>
+                </TabControl>
+            </Grid>
+        </UserControl>
+        <dxr:RibbonStatusBarControl Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>

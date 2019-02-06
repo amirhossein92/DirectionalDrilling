@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using DirectionalDrilling.DataAccess;
 using DirectionalDrilling.DataAccess.Survey;
-using DirectionalDrilling.UI.ViewModels;
-using DirectionalDrilling.UI.Views;
 using Prism.Events;
 
 namespace DirectionalDrilling.UI
@@ -21,9 +19,7 @@ namespace DirectionalDrilling.UI
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var eventAggregator = new EventAggregator();
-            var mainWindow =
-                new MainWindow(new MainWindowViewModel(new SurveySelectionTreeListViewModel(eventAggregator)), eventAggregator);
+            var mainWindow = new MainWindow();
             mainWindow.Show();
         }
     }

@@ -1,44 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Prism.Commands;
+using Prism.Properties;
 
 namespace DirectionalDrilling.UI.Commands
 {
-    public class RelayCommand : ICommand
+    public class RelayCommand : DelegateCommand
     {
-        private Action _targetExecuteMethod;
-        private Func<bool> _targetCanExecuteMethod;
-
-        public RelayCommand(Action targetExecuteMethod)
+        public RelayCommand(Action executeMethod) : base(executeMethod)
         {
-            _targetExecuteMethod = targetExecuteMethod;
         }
 
-        public RelayCommand(Action targetExecuteMethod, Func<bool> targetCanExecuteMethod)
+        public RelayCommand(Action executeMethod, Func<bool> canExecuteMethod) : base(executeMethod, canExecuteMethod)
         {
-            _targetExecuteMethod = targetExecuteMethod;
-            _targetCanExecuteMethod = targetCanExecuteMethod;
         }
-
-        public bool CanExecute(object parameter)
-        {
-            if (_targetCanExecuteMethod != null)
-                return _targetCanExecuteMethod();
-            if (_targetExecuteMethod != null)
-                return true;
-            return false;
-        }
-
-        public void Execute(object parameter)
-        {
-            if (_targetExecuteMethod != null)
-                _targetExecuteMethod();
-
-        }
-
-        public event EventHandler CanExecuteChanged;
     }
 }

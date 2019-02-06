@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectionalDrilling.DataSto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectionalDrilling.UI", "DirectionalDrilling.UI\DirectionalDrilling.UI.csproj", "{92F7A11F-36A0-47EF-AB9C-97D4ABA5E60F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.Check", "UI.Check\UI.Check.csproj", "{111E68C9-6D52-4218-B4C1-3FEC7E81F33C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{92F7A11F-36A0-47EF-AB9C-97D4ABA5E60F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92F7A11F-36A0-47EF-AB9C-97D4ABA5E60F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92F7A11F-36A0-47EF-AB9C-97D4ABA5E60F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{111E68C9-6D52-4218-B4C1-3FEC7E81F33C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{111E68C9-6D52-4218-B4C1-3FEC7E81F33C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{111E68C9-6D52-4218-B4C1-3FEC7E81F33C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{111E68C9-6D52-4218-B4C1-3FEC7E81F33C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

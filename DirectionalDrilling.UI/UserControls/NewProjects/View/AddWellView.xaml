@@ -1,0 +1,53 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DirectionalDrilling.UI.UserControls.NewProjects.View"
+             xmlns:Models="clr-namespace:DirectionalDrilling.Model.Models;assembly=DirectionalDrilling.Model" x:Class="DirectionalDrilling.UI.UserControls.NewProjects.View.AddWellView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="wellViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Well}, CreateList=True}"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Add Well" HorizontalAlignment="Center" FontSize="24"/>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center">
+                <Label Content="Well Name: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <TextBox HorizontalAlignment="Left"
+                         Text="{Binding Well.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                         VerticalAlignment="Center" 
+                         Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Label Content="Platform: " 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"/>
+                <ComboBox ItemsSource="{Binding Platforms}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          SelectedValue="{Binding Well.PlatformId, Mode=TwoWay}"
+                          HorizontalAlignment="Left"
+                          Height="Auto"
+                          VerticalAlignment="Center" Width="200">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+            <Button Content="Save" Margin="10" Command="{Binding SaveCommand}"/>
+            <Button Content="Cancel" Margin="10" Command="{Binding CancelCommand}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
