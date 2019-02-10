@@ -43,12 +43,12 @@
                   IsReadOnly="{Binding IsReadOnly}"
                   SelectedItem="{Binding SelectedSurveyItem}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Measured Depth" Binding="{Binding MeasuredDepth, Mode=TwoWay}" />
+                <DataGridTextColumn Header="Measured Depth" Binding="{Binding MeasuredDepth, Mode=TwoWay, StringFormat=N}" />
                 <DataGridTextColumn Header="Inclination" Binding="{Binding Inclination}" />
                 <DataGridTextColumn Header="Azimuth" Binding="{Binding Azimuth}" />
-                <DataGridTextColumn Header="True Vertical Depth" Binding="{Binding TrueVerticalDepth}" />
-                <DataGridTextColumn Header="Northing" Binding="{Binding Northing}" />
-                <DataGridTextColumn Header="Easting" Binding="{Binding Easting}" />
+                <DataGridTextColumn Header="True Vertical Depth" Binding="{Binding TrueVerticalDepth, StringFormat=N}" />
+                <DataGridTextColumn Header="Northing" Binding="{Binding Northing, StringFormat=N}" />
+                <DataGridTextColumn Header="Easting" Binding="{Binding Easting, StringFormat=N}" />
                 <DataGridTextColumn Header="Hole Diameter" Binding="{Binding HoleDiameter}" />
                 <DataGridTextColumn Header="Survey Tool" Binding="{Binding SurveyTool}" />
                 <DataGridTextColumn Header="Remark" Binding="{Binding Remark}" />

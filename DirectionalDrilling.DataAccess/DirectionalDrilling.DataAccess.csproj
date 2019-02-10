@@ -51,6 +51,8 @@
     <Compile Include="Company\CompanyService.cs" />
     <Compile Include="Company\ICompanyService.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Math\IMathService.cs" />
+    <Compile Include="Math\MathService.cs" />
     <Compile Include="PlatformRig\IPlatformRigService.cs" />
     <Compile Include="PlatformRig\PlatformRigService.cs" />
     <Compile Include="Platform\IPlatformService.cs" />
@@ -84,5 +86,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

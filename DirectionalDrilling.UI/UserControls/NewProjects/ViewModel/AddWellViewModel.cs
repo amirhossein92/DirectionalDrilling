@@ -34,6 +34,7 @@ namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
         }
 
         public RelayCommand SaveCommand { get; private set; }
+
         private void GetPlatforms()
         {
             Platforms = new ObservableCollection<Platform>(_unitOfWork.PlatformService.GetPlatforms());

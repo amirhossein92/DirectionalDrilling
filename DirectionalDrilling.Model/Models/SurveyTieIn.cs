@@ -77,7 +77,7 @@ namespace DirectionalDrilling.Model.Models
         private double _easting;
         public double Easting
         {
-            get => Easting;
+            get => _easting;
             set
             {
                 _easting = value;

@@ -59,6 +59,11 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
             get => _surveyDescription;
             set => SetProperty(ref _surveyDescription, value);
         }
+        public int SelectedSurveyId
+        {
+            get => _selectedSurveyId;
+            set => SetProperty(ref _selectedSurveyId, value);
+        }
         public bool IsReadOnly
         {
             get => _isReadOnly;
@@ -121,20 +126,22 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
         {
             var newSurveyItem = new SurveyItem();
             SurveyItems.Add(newSurveyItem);
+            SaveCommand.RaiseCanExecuteChanged();
         }
         private void OnDeleteRow()
         {
+            // TODO: Remove from database too!
             SurveyItems.Remove(SelectedSurveyItem);
         }
 
         private bool CanSave()
         {
-            return (_surveyItems != null) && (_surveyItems.Count > 0);
+            return (SurveyItems != null) && (SurveyItems.Count > 0);
         }
 
         private void OnSaveCommand()
         {
-            foreach (var surveyItem in _surveyItems)
+            foreach (var surveyItem in SurveyItems)
             {
                 if (surveyItem.SurveyId == 0)
                 {
@@ -150,8 +157,8 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
 
         private void OnCalculate()
         {
-            throw new NotImplementedException();
+            // TODO: Implement Calculate Button
+            _unitOfWork.SurveyService.MinimumCurvatureMethod(SelectedSurveyId);
         }
-
-    }
+        }
 }

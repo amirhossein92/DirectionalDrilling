@@ -24,7 +24,11 @@ namespace UI.Check
             CurrentViews = new ObservableCollection<object>();
         }
 
-        
+        private void OnCloseTab()
+        {
+            _currentViews.Remove(this);}
+
+
         public RelayCommand LoadCommand { get; private set; }
         public object CurrentView
         {
@@ -36,6 +40,9 @@ namespace UI.Check
             }
         }
 
+        public string Header
+        {
+            get=> "First View" ;}
         public ObservableCollection<object> CurrentViews
         {
             get => _currentViews;

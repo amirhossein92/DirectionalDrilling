@@ -11,6 +11,7 @@ namespace DirectionalDrilling.DataAccess.SurveyItem
         void Add(Model.Models.SurveyItem survey);
         Model.Models.SurveyItem GetSurveyItemById(int id);
         List<Model.Models.SurveyItem> GetSurveyItems();
+        List<Model.Models.SurveyItem> GetSurveyItemsBySurveyId(int id);
         void Update(Model.Models.SurveyItem surveyItem);
         void Delete(Model.Models.SurveyItem surveyItem);
     }

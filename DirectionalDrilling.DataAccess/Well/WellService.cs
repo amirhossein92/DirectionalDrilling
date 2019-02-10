@@ -40,6 +40,11 @@ namespace DirectionalDrilling.DataAccess.Well
             return _context.Wells.ToList();
         }
 
+        public List<Model.Models.Well> GetWellsByPlatformId(int id)
+        {
+            return _context.Wells.Where(item => item.Platform.Id == id).ToList();
+        }
+
         public void Update(Model.Models.Well well)
         {
             var foundWell = GetWellById(well.Id);

@@ -40,6 +40,11 @@ namespace DirectionalDrilling.DataAccess.SurveyItem
             return _context.SurveyItems.ToList();
         }
 
+        public List<Model.Models.SurveyItem> GetSurveyItemsBySurveyId(int id)
+        {
+            return _context.SurveyItems.Where(item => item.Survey.Id == id).ToList();
+        }
+
         public void Update(Model.Models.SurveyItem surveyItem)
         {
             var foundSurveyItem = GetSurveyItemById(surveyItem.Id);

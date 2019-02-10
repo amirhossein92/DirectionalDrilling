@@ -5,13 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.Data.Mask;
 using DevExpress.Mvvm;
+using DevExpress.Mvvm.POCO;
 using DirectionalDrilling.DataAccess;
 using DirectionalDrilling.Model;
 using DirectionalDrilling.UI.Base;
 using DirectionalDrilling.UI.Commands;
 using DirectionalDrilling.UI.Events;
 using DirectionalDrilling.UI.UserControls.Dashboard;
+using DirectionalDrilling.UI.UserControls.Graph.ViewModel;
 using DirectionalDrilling.UI.UserControls.NewProjects.ViewModel;
 using DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel;
 using DirectionalDrilling.UI.UserControls.SurveySelectionTreeList;
@@ -27,6 +30,9 @@ namespace DirectionalDrilling.UI
         private AddPlatfromViewModel _addPlatfromViewModel;
         private AddWellViewModel _addWellViewModel;
         private DashboardViewModel _dashboardViewModel;
+        private NewSurveyViewModel _newSurveyViewModel;
+        private SectionViewModel _sectionViewModel;
+        private ImportSurveyViewModel _importSurveyViewModel;
 
         private IUserControlViewModel _treeListViewModel;
         private ObservableCollection<TabItemBase> _currentViewModels;
@@ -42,20 +48,35 @@ namespace DirectionalDrilling.UI
         {
             _eventAggregator = new EventAggregator();
             _eventAggregator.GetEvent<TreeListSelectionChangeEvent>().Subscribe(OnSurveySelectionChanged);
+            _eventAggregator.GetEvent<CloseTabEvent>().Subscribe(CloseSelectedTab);
             _unitOfWork = new UnitOfWork();
+
+            AddPlatform = new RelayCommand(OnAddPlatform);
+            AddWell = new RelayCommand(OnAddWell);
+            NewSurvey = new RelayCommand(OnNewSurvey);
+            ImportSurvey = new RelayCommand(OnImportSurvey, CanImportSurvey);
+            ManageSurvey = new RelayCommand(OnManageSurvey);
+            SectionView = new RelayCommand(OnSectionView, CanOpenSectionView);
+            CloseTab = new RelayCommand(OnCloseTab);
 
             _surveySelectionTreeListViewModel = new SurveySelectionTreeListViewModel(_eventAggregator, _unitOfWork);
             TreeListViewModel = _surveySelectionTreeListViewModel;
             _dashboardViewModel = new DashboardViewModel();
             CurrentViewModels = new ObservableCollection<TabItemBase>();
-            _currentViewModel = new TabItemBase("Dashboard", _dashboardViewModel);
+            //_currentViewModel = new TabItemBase("Dashboard", _dashboardViewModel);
             CreateNewTabFromViewModel("Dashboard", _dashboardViewModel);
-
-            AddPlatform = new RelayCommand(OnAddPlatform);
-            AddWell = new RelayCommand(OnAddWell);
-            ManageSurvey = new RelayCommand(OnManageSurvey);
         }
 
+
+        private void OnCloseTab()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CloseSelectedTab()
+        {
+            CurrentViewModels.Remove(CurrentViewModel);
+        }
 
         private void OnSurveySelectionChanged(int selectedSurveyId)
         {
@@ -65,18 +86,53 @@ namespace DirectionalDrilling.UI
 
         public RelayCommand AddPlatform { get; private set; }
         public RelayCommand AddWell { get; private set; }
+        public RelayCommand NewSurvey { get; private set; }
+        public RelayCommand ImportSurvey { get; private set; }
         public RelayCommand ManageSurvey { get; private set; }
+        public RelayCommand SectionView { get; private set; }
+
+        public RelayCommand CloseTab { get; private set; }
+
         public IUserControlViewModel TreeListViewModel
         {
             get => _treeListViewModel;
             set => SetProperty(ref _treeListViewModel, value);
         }
+
         public ObservableCollection<TabItemBase> CurrentViewModels { get; private set; }
+
         public TabItemBase CurrentViewModel
         {
-            get => _currentViewModel;
-            set => SetProperty(ref _currentViewModel, value);
+            get
+            {
+                if (_currentViewModel.Content.GetType() != typeof(ManageSurveyViewModel))
+                {
+                    _selectedSurveyId = 0;
+                }
+                else
+                {
+                    _selectedSurveyId = ((ManageSurveyViewModel)_currentViewModel.Content).SelectedSurveyId;
+                }
+                SectionView.RaiseCanExecuteChanged();
+                ImportSurvey.RaiseCanExecuteChanged();
+                return _currentViewModel;
+            }
+            set
+            {
+                SetProperty(ref _currentViewModel, value);
+                if (value.Content.GetType() != typeof(ManageSurveyViewModel))
+                {
+                    _selectedSurveyId = 0;
+                }
+                else
+                {
+                    _selectedSurveyId = ((ManageSurveyViewModel)_currentViewModel.Content).SelectedSurveyId;
+                }
+                SectionView.RaiseCanExecuteChanged();
+                ImportSurvey.RaiseCanExecuteChanged();
+            }
         }
+
         public bool IsGridEdittable
         {
             get => _isGridEdittable;
@@ -99,16 +155,52 @@ namespace DirectionalDrilling.UI
             CreateNewTabFromViewModel("Add Well", _addWellViewModel);
         }
 
+        private void OnNewSurvey()
+        {
+            _newSurveyViewModel = new NewSurveyViewModel(_unitOfWork, _eventAggregator);
+            CreateNewTabFromViewModel("Add Survey", _newSurveyViewModel);
+        }
+
+        private bool CanImportSurvey()
+        {
+            // TODO: Update can import
+            return _selectedSurveyId != 0;
+        }
+
+        private void OnImportSurvey()
+        {
+            _importSurveyViewModel = new ImportSurveyViewModel(_selectedSurveyId, _unitOfWork);
+            CreateNewTabFromViewModel("Import Survey", _importSurveyViewModel);
+        }
+
         private void OnManageSurvey()
         {
             _manageSurveyViewModel = new ManageSurveyViewModel(_selectedSurveyId, _unitOfWork);
             _manageSurveyViewModel.LoadData();
             CreateNewTabFromViewModel("Manage Survey", _manageSurveyViewModel);
+            SectionView.RaiseCanExecuteChanged();
         }
 
-        private void CreateNewTabFromViewModel(string header, IUserControlViewModel currentViewModel)
+        private bool CanOpenSectionView()
         {
-            CurrentViewModels.Add(new TabItemBase(header, currentViewModel));
-            CurrentViewModel.Content = currentViewModel ;
-            CurrentViewModel.Header = header;}}
+            return _selectedSurveyId != 0;
+        }
+
+        private void OnSectionView()
+        {
+            _sectionViewModel = new SectionViewModel();
+            CreateNewTabFromViewModel("Section View", _sectionViewModel);
+        }
+
+        private void CreateNewTabFromViewModel(string header, BindableBase currentViewModel)
+        {
+            CurrentViewModel = new TabItemBase
+            {
+                Content = currentViewModel,
+                Header = header
+            };
+            CurrentViewModels.Add(CurrentViewModel);
+           
+        }
+    }
 }

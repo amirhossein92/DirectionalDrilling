@@ -26,5 +26,6 @@
             <Button Content="Save" Margin="10" Command="{Binding SaveCommand}"/>
             <Button Content="Cancel" Margin="10" Command="{Binding CancelCommand}"/>
         </StackPanel>
+        
     </Grid>
 </UserControl>

@@ -15,6 +15,8 @@
     xmlns:newProjectsVM="clr-namespace:DirectionalDrilling.UI.UserControls.NewProjects.ViewModel"
     xmlns:surveySelectionTreeList="clr-namespace:DirectionalDrilling.UI.UserControls.SurveySelectionTreeList"
     xmlns:dashboard="clr-namespace:DirectionalDrilling.UI.UserControls.Dashboard"
+    xmlns:graphV="clr-namespace:DirectionalDrilling.UI.UserControls.Graph.View"
+    xmlns:graphVM="clr-namespace:DirectionalDrilling.UI.UserControls.Graph.ViewModel"
         x:Class="DirectionalDrilling.UI.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -37,7 +39,16 @@
         <DataTemplate DataType="{x:Type dashboard:DashboardViewModel}">
             <dashboard:DashboardView/>
         </DataTemplate>
-    </Window.Resources>
+        <DataTemplate DataType="{x:Type surveyManagementVM:NewSurveyViewModel}">
+            <surveyManagementV:NewSurveyView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type graphVM:SectionViewModel}">
+            <graphV:SectionView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type surveyManagementVM:ImportSurveyViewModel}">
+            <surveyManagementV:ImportSurveyView/>
+        </DataTemplate>
+</Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -53,8 +64,8 @@
                         <dxb:BarButtonItem Content="Wellbore" Command="{Binding AddWellbore}"/>
                     </dxr:RibbonPageGroup>
                     <dxr:RibbonPageGroup Caption="Survey Management">
-                        <dxb:BarButtonItem Content="New Survey" />
-                        <dxb:BarButtonItem Content="Import Survey" />
+                        <dxb:BarButtonItem Content="New Survey" Command="{Binding NewSurvey}" />
+                        <dxb:BarButtonItem Content="Import Survey" Command="{Binding ImportSurvey}"/>
                         <dxb:BarEditItem Content="Edit Grid:" EditValue="{Binding IsGridEdittable}">
                             <dxb:BarEditItem.EditSettings >
                                 <dxe:ToggleSwitchEditSettings 
@@ -62,15 +73,10 @@
                                     CheckedStateContent="On"/>
                             </dxb:BarEditItem.EditSettings>
                         </dxb:BarEditItem>
-                        <dxb:BarCheckItem>
-                            <dxb:BarCheckItem.Content>
-                                <Run Foreground="MediumSeaGreen" Text="Read-Only"/>
-                            </dxb:BarCheckItem.Content>
-                        </dxb:BarCheckItem>
                         <dxb:BarButtonItem Content="Manage Survey" Command="{Binding ManageSurvey}"/>
                     </dxr:RibbonPageGroup>
                     <dxr:RibbonPageGroup Caption="Graph">
-                        <dxb:BarButtonItem Content="Section View" />
+                        <dxb:BarButtonItem Content="Section View" Command="{Binding SectionView}"/>
                         <dxb:BarButtonItem Content="Plan View" />
                         <dxb:BarButtonItem Content="3D View" />
                     </dxr:RibbonPageGroup>
@@ -105,13 +111,18 @@
                     <TabControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Header}"/>
+                                <TextBlock Name="HeaderTextBlock"  Text="{Binding Header, Mode=TwoWay}" VerticalAlignment="Center"/>
+                                <Button Content="X"
+                                        Command="{Binding CloseTab, Mode=TwoWay}"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
                             </StackPanel>
                         </DataTemplate>
                     </TabControl.ItemTemplate>
                     <TabControl.ContentTemplate>
                         <DataTemplate>
-                            <ContentControl Content="{Binding Content}"/>
+                            <ContentControl Content="{Binding Content, Mode=TwoWay}"/>
                         </DataTemplate>
                     </TabControl.ContentTemplate>
                 </TabControl>

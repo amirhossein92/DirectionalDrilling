@@ -89,11 +89,16 @@
     <Compile Include="Base\TabItemBase.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="DataProviders\TreeListLookUpItem.cs" />
+    <Compile Include="Events\CloseTabEvent.cs" />
     <Compile Include="Events\TreeListSelectionChangeEvent.cs" />
     <Compile Include="UserControls\Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Dashboard\DashboardViewModel.cs" />
+    <Compile Include="UserControls\Graph\ViewModel\SectionViewModel.cs" />
+    <Compile Include="UserControls\Graph\View\SectionView.xaml.cs">
+      <DependentUpon>SectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\NewProjects\ViewModel\AddPlatfromViewModel.cs" />
     <Compile Include="UserControls\NewProjects\ViewModel\AddWellboreViewModel.cs" />
     <Compile Include="UserControls\NewProjects\ViewModel\AddWellViewModel.cs" />
@@ -106,9 +111,17 @@
     <Compile Include="UserControls\NewProjects\View\AddWellView.xaml.cs">
       <DependentUpon>AddWellView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SurveyManagement\ViewModel\ImportSurveyViewModel.cs" />
     <Compile Include="UserControls\SurveyManagement\ViewModel\ManageSurveyViewModel.cs" />
+    <Compile Include="UserControls\SurveyManagement\ViewModel\NewSurveyViewModel.cs" />
+    <Compile Include="UserControls\SurveyManagement\View\ImportSurveyView.xaml.cs">
+      <DependentUpon>ImportSurveyView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SurveyManagement\View\ManageSurveyView.xaml.cs">
       <DependentUpon>ManageSurveyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SurveyManagement\View\NewSurveyView.xaml.cs">
+      <DependentUpon>NewSurveyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SurveySelectionTreeList\SurveySelectionTreeListViewModel.cs" />
     <Compile Include="UserControls\SurveySelectionTreeList\SurveySelectionTreeListView.xaml.cs">
@@ -130,6 +143,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Graph\View\SectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\NewProjects\View\AddPlatfromView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,7 +159,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\SurveyManagement\View\ImportSurveyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\SurveyManagement\View\ManageSurveyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SurveyManagement\View\NewSurveyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,7 +220,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UserControls\Graph\" />
     <Folder Include="UserControls\Schematic\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

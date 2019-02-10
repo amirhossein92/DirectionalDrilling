@@ -26,6 +26,14 @@
         </Grid.RowDefinitions>
         <Button Content="Load Next" Command="{Binding LoadCommand}"/>
         <TabControl Grid.Row="1" ItemsSource="{Binding CurrentViews}">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid}},Path=Header}"/>
+                        <Button Content="X" Command="{Binding CloseTab}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
         </TabControl>
     </Grid>
 </Window>
