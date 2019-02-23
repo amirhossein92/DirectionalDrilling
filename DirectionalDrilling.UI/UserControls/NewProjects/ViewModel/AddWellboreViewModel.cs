@@ -11,7 +11,7 @@ using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
 {
-    class AddWellboreViewModel : BindableBase, IUserControlViewModel
+    class AddWellboreViewModel : UserControlViewModelBase
     {
         
     }

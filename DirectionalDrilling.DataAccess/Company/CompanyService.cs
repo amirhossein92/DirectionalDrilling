@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DirectionalDrilling.DataStorage.Database;
 using DirectionalDrilling.Model.Database;
 
 namespace DirectionalDrilling.DataAccess.Company

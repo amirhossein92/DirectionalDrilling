@@ -50,6 +50,8 @@
   <ItemGroup>
     <Compile Include="Company\CompanyService.cs" />
     <Compile Include="Company\ICompanyService.cs" />
+    <Compile Include="Formation\FormationService.cs" />
+    <Compile Include="Formation\IFormationService.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Math\IMathService.cs" />
     <Compile Include="Math\MathService.cs" />
@@ -58,6 +60,10 @@
     <Compile Include="Platform\IPlatformService.cs" />
     <Compile Include="Platform\PlatformService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\ISectionViewReportService.cs" />
+    <Compile Include="Report\Models\SectionView\SectionViewReportModel.cs" />
+    <Compile Include="Report\Models\SectionView\SectionViewReportModelChart.cs" />
+    <Compile Include="Report\SectionViewReportService.cs" />
     <Compile Include="Rig\IRigService.cs" />
     <Compile Include="Rig\RigService.cs" />
     <Compile Include="SurveyItem\ISurveyItemService.cs" />

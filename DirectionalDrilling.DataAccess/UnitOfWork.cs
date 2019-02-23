@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DirectionalDrilling.DataAccess.Company;
+using DirectionalDrilling.DataAccess.Formation;
 using DirectionalDrilling.DataAccess.Platform;
 using DirectionalDrilling.DataAccess.PlatformRig;
 using DirectionalDrilling.DataAccess.Rig;
@@ -16,7 +17,7 @@ using DirectionalDrilling.Model.Database;
 
 namespace DirectionalDrilling.DataAccess
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private DirectionalDrillingContext _context;
 
@@ -132,6 +133,19 @@ namespace DirectionalDrilling.DataAccess
                     _wellboreService = new WellboreService(_context);
                 }
                 return _wellboreService;
+            }
+        }
+
+        private IFormationService _formationService;
+        public IFormationService FormationService
+        {
+            get
+            {
+                if (_formationService == null)
+                {
+                    _formationService = new FormationService(_context);
+                }
+                return _formationService;
             }
         }
 

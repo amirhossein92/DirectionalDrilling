@@ -1,12 +1,66 @@
-﻿<UserControl x:Class="DirectionalDrilling.UI.UserControls.Graph.View.SectionView"
+﻿<UserControl xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DirectionalDrilling.UI.UserControls.Graph.View"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             x:Class="DirectionalDrilling.UI.UserControls.Graph.View.SectionView"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <ei:CallMethodAction TargetObject="{Binding}" MethodName="OnLoaded"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-            <TextBlock Text="Section View" FontSize="24"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Section View" FontSize="24"  HorizontalAlignment="Center" Margin="5"/>
+            <Button Content="Export To PDF" Margin="5" Click="ExportedPdf_OnClick"/>
+            <Button Content="Print Preview" Margin="5" Click="PrintPreview_OnClick"/>
+            <Button Content="Print" Margin="5" Click="Print_OnClick" Command="{Binding PrintCommand}"/>
+        </StackPanel>
+        <dxc:ChartControl x:Name="ChartControl" Grid.Row="1" Margin="10">
+            <dxc:ChartControl.CrosshairOptions>
+                <dxc:CrosshairOptions ShowValueLine="True" ShowArgumentLine="True">
+                </dxc:CrosshairOptions>
+            </dxc:ChartControl.CrosshairOptions>
+            <dxc:ChartControl.Diagram>
+                <dxc:XYDiagram2D EnableAxisYNavigation="True" EnableAxisXNavigation="True">
+                    <dxc:XYDiagram2D.AxisY>
+                        <dxc:AxisY2D Reverse="True" GridLinesMinorVisible="True" Interlaced="True">
+                            <dxc:AxisY2D.Title>
+                                <dxc:AxisTitle Content="True Vertical Depth"/>
+                            </dxc:AxisY2D.Title>
+                        </dxc:AxisY2D>
+                    </dxc:XYDiagram2D.AxisY>
+                    <dxc:XYDiagram2D.AxisX>
+                        <dxc:AxisX2D GridLinesVisible="True" GridLinesMinorVisible="True" Interlaced="False">
+                            <dxc:AxisX2D.Title>
+                                <dxc:AxisTitle Content="Vertical Section"/>
+                            </dxc:AxisX2D.Title>
+                        </dxc:AxisX2D>
+                    </dxc:XYDiagram2D.AxisX>
+                    <dxc:XYDiagram2D.DefaultPane>
+                        <dxc:Pane>
+                            <dxc:Pane.AxisXScrollBarOptions>
+                                <dxc:ScrollBarOptions Visible="False"/>
+                            </dxc:Pane.AxisXScrollBarOptions>
+                            <dxc:Pane.AxisYScrollBarOptions>
+                                <dxc:ScrollBarOptions Visible="False"/>
+                            </dxc:Pane.AxisYScrollBarOptions>
+                        </dxc:Pane>
+                    </dxc:XYDiagram2D.DefaultPane>
+                    <dxc:XYDiagram2D.Series>
+                        <dxc:SplineSeries2D DataSource="{Binding SurveyItems}" ArgumentDataMember="X" ValueDataMember="Y" />
+                    </dxc:XYDiagram2D.Series>
+                </dxc:XYDiagram2D>
+            </dxc:ChartControl.Diagram>
+        </dxc:ChartControl>
     </Grid>
 </UserControl>

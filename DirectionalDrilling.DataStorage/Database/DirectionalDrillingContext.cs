@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using DirectionalDrilling.DataStorage;
 using DirectionalDrilling.DataStorage.Configuration;
+using DirectionalDrilling.DataStorage.Database;
 using DirectionalDrilling.DataStorage.Migrations;
 using DirectionalDrilling.Model.Models;
 
 namespace DirectionalDrilling.Model.Database
 {
-    public class DirectionalDrillingContext : DbContext
+    public class DirectionalDrillingContext : DbContext, IDirectionalDrillingContext
     {
         public DirectionalDrillingContext() : base("name=DirectionalDrillingDBConnectionString")
         {
@@ -29,6 +30,12 @@ namespace DirectionalDrilling.Model.Database
         public DbSet<SurveyItem> SurveyItems { get; set; }
         public DbSet<Well> Wells { get; set; }
         public DbSet<Wellbore> Wellbores { get; set; }
+        public DbSet<Formation> Formations { get; set; }
+
+        public new void SaveChanges()
+        {
+            base.SaveChanges();
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

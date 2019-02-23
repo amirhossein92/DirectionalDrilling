@@ -103,7 +103,17 @@ namespace DirectionalDrilling.Model.Models
             }
         }
 
-
+        private double _verticalSection;
+        public double VerticalSection
+        {
+            get => _verticalSection;
+            set
+            {
+                _verticalSection = value;
+                OnPropertyChanged();
+            }
+        }
+        
         private double _holeDiameter;
         public double HoleDiameter
         {

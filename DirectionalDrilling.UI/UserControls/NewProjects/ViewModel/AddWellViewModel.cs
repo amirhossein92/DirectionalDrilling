@@ -13,13 +13,13 @@ using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
 {
-    class AddWellViewModel : BindableBase, IUserControlViewModel
+    class AddWellViewModel : UserControlViewModelBase
     {
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
         private Well _well;
         private ObservableCollection<Platform> _platforms;
 
-        public AddWellViewModel(UnitOfWork unitOfWork)
+        public AddWellViewModel(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             GetWell();

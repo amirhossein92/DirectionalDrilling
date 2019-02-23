@@ -35,13 +35,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Charts.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.DataAccess.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Mvvm.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v18.1.Export, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Charts.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Core.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Docking.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Grid.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Grid.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Layout.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.LayoutControl.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpf.Printing.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Ribbon.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -57,8 +74,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -85,11 +104,27 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Base\BindableBase.cs" />
-    <Compile Include="Base\IUserControlViewModel.cs" />
+    <Compile Include="Base\Report\DDLabelValue.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\Report\DDLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Base\TabItemBase.cs" />
+    <Compile Include="Base\UserControlViewBase.cs" />
+    <Compile Include="Base\UserControlViewModelBase.cs" />
+    <Compile Include="Base\XtraReportBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Base\XtraReportBase.Designer.cs">
+      <DependentUpon>XtraReportBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="DataProviders\SectionViewGraph.cs" />
+    <Compile Include="DataProviders\SurveyGraphItem.cs" />
     <Compile Include="DataProviders\TreeListLookUpItem.cs" />
     <Compile Include="Events\CloseTabEvent.cs" />
+    <Compile Include="Events\OpenReportEvent.cs" />
     <Compile Include="Events\TreeListSelectionChangeEvent.cs" />
     <Compile Include="UserControls\Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
@@ -111,6 +146,16 @@
     <Compile Include="UserControls\NewProjects\View\AddWellView.xaml.cs">
       <DependentUpon>AddWellView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Report\SectionViewXtraReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\Report\SectionViewXtraReport.Designer.cs">
+      <DependentUpon>SectionViewXtraReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Schematic\WellProfileView.xaml.cs">
+      <DependentUpon>WellProfileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Schematic\WellProfileViewModel.cs" />
     <Compile Include="UserControls\SurveyManagement\ViewModel\ImportSurveyViewModel.cs" />
     <Compile Include="UserControls\SurveyManagement\ViewModel\ManageSurveyViewModel.cs" />
     <Compile Include="UserControls\SurveyManagement\ViewModel\NewSurveyViewModel.cs" />
@@ -127,6 +172,8 @@
     <Compile Include="UserControls\SurveySelectionTreeList\SurveySelectionTreeListView.xaml.cs">
       <DependentUpon>SurveySelectionTreeListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WindowManagement\IWindowManagementService.cs" />
+    <Compile Include="WindowManagement\WindowManagementService.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -156,6 +203,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\NewProjects\View\AddWellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Schematic\WellProfileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -191,10 +242,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Base\XtraReportBase.resx">
+      <DependentUpon>XtraReportBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Report\SectionViewXtraReport.resx">
+      <DependentUpon>SectionViewXtraReport.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\DirectionalDrilling.Model.Models.Platform.datasource" />
@@ -219,8 +276,6 @@
       <Name>DirectionalDrilling.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UserControls\Schematic\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

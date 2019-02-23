@@ -8,7 +8,7 @@ using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.Dashboard
 {
-    public class DashboardViewModel : BindableBase, IUserControlViewModel
+    public class DashboardViewModel : UserControlViewModelBase
     {
     }
 }

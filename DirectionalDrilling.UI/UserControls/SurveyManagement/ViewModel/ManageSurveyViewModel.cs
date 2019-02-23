@@ -15,10 +15,10 @@ using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
 {
-    public class ManageSurveyViewModel : BindableBase, IUserControlViewModel
+    public class ManageSurveyViewModel : UserControlViewModelBase
     {
         private string _header;
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
         private ObservableCollection<SurveyItem> _surveyItems = new ObservableCollection<SurveyItem>();
         private MainWindowViewModel _mainWindowViewModel;
         private IEventAggregator _eventAggregator;
@@ -27,7 +27,7 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
         private bool _isReadOnly = true;
         private SurveyItem _selectedSurveyItem;
 
-        public ManageSurveyViewModel(int selectedSurveyId, UnitOfWork unitOfWork)
+        public ManageSurveyViewModel(int selectedSurveyId, IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             _selectedSurveyId = selectedSurveyId;

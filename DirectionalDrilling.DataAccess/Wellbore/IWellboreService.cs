@@ -12,6 +12,7 @@ namespace DirectionalDrilling.DataAccess.Wellbore
         Model.Models.Wellbore GetWellboreById(int id);
         List<Model.Models.Wellbore> GetWellbores();
         List<Model.Models.Wellbore> GetWellboresByWellId(int id);
+        Model.Models.Wellbore GetWellboreBySurveyId(int id);
         void Update(Model.Models.Wellbore wellbore);
         void Delete(Model.Models.Wellbore wellbore);
     }

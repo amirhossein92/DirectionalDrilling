@@ -42,15 +42,35 @@ namespace DirectionalDrilling.UI.DataProviders
             }
         }
 
-        private int _surveyId;
-        public int SurveyId
+        private int _objectRealId;
+        public int ObjectRealId
         {
-            get => _surveyId;
+            get => _objectRealId;
             set
             {
-                _surveyId = value;
+                _objectRealId = value;
                 OnPropertyChanged();
             }
         }
+
+        private TreeListStatus _status;
+        public TreeListStatus Status
+        {
+            get => _status;
+            set
+            {
+                _status = value;
+                OnPropertyChanged();
+            }
         }
+
+    }
+
+    public enum TreeListStatus
+    {
+        IsPlatform,
+        IsWell,
+        IsWellbore,
+        IsSurvey
+    }
 }

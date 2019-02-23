@@ -17,17 +17,19 @@ using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.SurveySelectionTreeList
 {
-    public class SurveySelectionTreeListViewModel : BindableBase, IUserControlViewModel
+    public class SurveySelectionTreeListViewModel : UserControlViewModelBase
     {
         private ObservableCollection<TreeListLookUpItem> _surveyList;
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
         private IEventAggregator _eventAggregator;
         private int _selectedSurveyId;
         private TreeListLookUpItem _selectedSurvey;
 
-        public SurveySelectionTreeListViewModel(IEventAggregator eventAggregator,
-            UnitOfWork unitOfWork)
+        public SurveySelectionTreeListViewModel(SurveySelectionTreeListView surveySelectionTreeListView, 
+            IEventAggregator eventAggregator,
+            IUnitOfWork unitOfWork)
         {
+            UserControlView = surveySelectionTreeListView;
             _unitOfWork = unitOfWork;
             _surveyList = new ObservableCollection<TreeListLookUpItem>();
             _selectedSurvey = new TreeListLookUpItem();
@@ -38,7 +40,7 @@ namespace DirectionalDrilling.UI.UserControls.SurveySelectionTreeList
             RefreshData = new RelayCommand(OnRefreshData);
         }
 
-        
+
         public ObservableCollection<TreeListLookUpItem> SurveyList
         {
             get => _surveyList;
@@ -66,11 +68,11 @@ namespace DirectionalDrilling.UI.UserControls.SurveySelectionTreeList
 
             foreach (var platform in _unitOfWork.PlatformService.GetPlatforms())
             {
-                SurveyList.Add(new TreeListLookUpItem { Id = platformId, Name = platform.Name });
+                SurveyList.Add(new TreeListLookUpItem { Id = platformId, Name = platform.Name, ObjectRealId = platform.Id ,Status = TreeListStatus.IsPlatform });
 
                 foreach (var well in _unitOfWork.WellService.GetWells().Where(item => item.Platform.Id == platform.Id).ToList())
                 {
-                    SurveyList.Add(new TreeListLookUpItem { Id = wellId, Name = well.Name, ParentId = platformId });
+                    SurveyList.Add(new TreeListLookUpItem { Id = wellId, Name = well.Name, ParentId = platformId,ObjectRealId=well.Id, Status = TreeListStatus.IsWell });
                     foreach (var wellbore in _unitOfWork.WellboreService.GetWellbores().Where(item => item.Well.Id == well.Id)
                         .ToList())
                     {
@@ -78,7 +80,9 @@ namespace DirectionalDrilling.UI.UserControls.SurveySelectionTreeList
                         {
                             Id = wellboreId,
                             Name = wellbore.Name,
-                            ParentId = wellId
+                            ParentId = wellId,
+                            ObjectRealId = wellbore.Id,
+                            Status = TreeListStatus.IsWellbore
                         });
                         foreach (var survey in _unitOfWork.SurveyService.GetSurveys()
                             .Where(item => item.Wellbore.Id == wellbore.Id).ToList())
@@ -88,7 +92,8 @@ namespace DirectionalDrilling.UI.UserControls.SurveySelectionTreeList
                                 Id = surveyId,
                                 Name = survey.Name,
                                 ParentId = wellboreId,
-                                SurveyId = survey.Id
+                                ObjectRealId = survey.Id,
+                                Status = TreeListStatus.IsSurvey
                             });
                             surveyId++;
                         }
@@ -106,11 +111,17 @@ namespace DirectionalDrilling.UI.UserControls.SurveySelectionTreeList
 
         public void OnSelectionChanged()
         {
-            if (SelectedSurvey != null && SelectedSurvey.SurveyId != 0)
+            if (SelectedSurvey.Status == TreeListStatus.IsSurvey)
             {
-                SelectedSurveyId = SelectedSurvey.SurveyId;
-                _eventAggregator.GetEvent<TreeListSelectionChangeEvent>().Publish(_selectedSurvey.SurveyId);
+                SelectedSurveyId = SelectedSurvey.ObjectRealId;
+                _eventAggregator.GetEvent<TreeListSelectionChangeEvent>().Publish(_selectedSurvey.ObjectRealId);
             }
+
+            if (SelectedSurvey.Status == TreeListStatus.IsPlatform)
+            {
+
+            }
+
 
         }
 

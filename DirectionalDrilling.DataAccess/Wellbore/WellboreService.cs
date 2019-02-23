@@ -39,11 +39,16 @@ namespace DirectionalDrilling.DataAccess.Wellbore
             return _context.Wellbores.Where(item => item.Well.Id == id).ToList();
         }
 
+        public Model.Models.Wellbore GetWellboreBySurveyId(int id)
+        {
+            var wellboreId = _context.Surveys.FirstOrDefault(item => item.Id == id).WellboreId;
+            return GetWellboreById(wellboreId);
+        }
+
         public void Update(Model.Models.Wellbore wellbore)
         {
             _context.Entry(wellbore).State = EntityState.Modified;
             _context.SaveChanges();
-
         }
 
         public void Delete(Model.Models.Wellbore wellbore)

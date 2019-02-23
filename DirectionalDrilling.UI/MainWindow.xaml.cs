@@ -15,7 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DevExpress.Xpf.Bars;
 using DevExpress.Xpf.Grid;
+using DevExpress.Xpf.Printing;
 using DevExpress.Xpf.Ribbon;
+using DirectionalDrilling.UI.Base;
 using DirectionalDrilling.UI.UserControls.SurveySelectionTreeList;
 using Prism.Events;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -27,9 +29,18 @@ namespace DirectionalDrilling.UI
     /// </summary>
     public partial class MainWindow : DXRibbonWindow
     {
+        private MainWindowViewModel _mainWindowViewModel;
         public MainWindow()
         {
             InitializeComponent();
+            _mainWindowViewModel = (MainWindowViewModel) DataContext;
+            _mainWindowViewModel.ReportBaseAction += ReportBaseAction;
+        }
+
+        private void ReportBaseAction(XtraReportBase reportBase)
+        {
+            reportBase.UpdateHeaderData();
+            PrintHelper.ShowRibbonPrintPreview(this, reportBase);
         }
     }
 }

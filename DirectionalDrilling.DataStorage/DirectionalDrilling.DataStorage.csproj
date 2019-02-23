@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Configuration\SurveyEntityConfiguration.cs" />
     <Compile Include="Database\DirectionalDrillingContext.cs" />
+    <Compile Include="Database\IDirectionalDrillingContext.cs" />
     <Compile Include="DirectionalDrillingDBInitializer.cs" />
     <Compile Include="Migrations\DirectionalDrillingDbContextMigrationConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -18,12 +18,10 @@ namespace DirectionalDrilling.Console
         static void Main(string[] args)
         {
             UnitOfWork unitOfWork = new UnitOfWork();
-
-            unitOfWork.WellService.Add(new Well {Name = "New Well", PlatformId = 1});
-            foreach (var item in unitOfWork.WellService.GetWells())
+            unitOfWork.FormationService.Add(new Formation{Name = "NewFormation", WellboreId = 1, FormationBottomTrueVerticalDepth = 100, FormationTopTrueVerticalDepth = 100});
+            foreach (var item in unitOfWork.FormationService.Getformations())
             {
-                System.Console.WriteLine(item.Name);
-            }
+                System.Console.WriteLine(item.Name);}
 
             System.Console.ReadKey();
         }

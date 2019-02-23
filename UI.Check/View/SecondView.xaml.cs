@@ -20,7 +20,7 @@ namespace UI.Check.View
     /// </summary>
     public partial class SecondView : UserControl
     {
-        public SecondView()
+        public SecondView(int id)
         {
             InitializeComponent();
         }

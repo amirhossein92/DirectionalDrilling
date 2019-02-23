@@ -26,7 +26,7 @@
             </StackPanel>
             <StackPanel>
                 <Label Content="The file contains:"/>
-                <Label Content="{Binding FileText, Mode=TwoWay}"/> 
+                <Label Content="{Binding FileText, Mode=TwoWay}" MaxHeight="100"/> 
             </StackPanel>
             <StackPanel>
                 <DataGrid ItemsSource="{Binding ImportedSurveyItems, Mode=TwoWay}"

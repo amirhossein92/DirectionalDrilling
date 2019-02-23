@@ -95,7 +95,7 @@ namespace DirectionalDrilling.DataAccess.Survey
                 Easting = inputSurveyTieIn.Easting
 
             };
-            foreach (var surveyItem in surveyItems.OrderByDescending(item => item.MeasuredDepth))
+            foreach (var surveyItem in surveyItems.OrderBy(item => item.MeasuredDepth))
             {
                 var d1 = MathService.CalculateRadiansCos(surveyItem.Inclination - preSurveyItem.Inclination) -
                              MathService.CalculateRadiansSin(surveyItem.Inclination) * MathService.CalculateRadiansSin(preSurveyItem.Inclination) *
@@ -123,9 +123,18 @@ namespace DirectionalDrilling.DataAccess.Survey
                                                                                                       * (MathService.CalculateRadiansSin(surveyItem.Inclination) * MathService.CalculateRadiansSin(surveyItem.Azimuth) +
                                                                                                          MathService.CalculateRadiansSin(preSurveyItem.Inclination) * MathService.CalculateRadiansSin(preSurveyItem.Azimuth));
 
-                double cDir;
+                double closureDirection;
+                if (surveyItem.Northing < 0.00001 && surveyItem.Northing > -0.00001)
+                    closureDirection = 90;
+                else
+                    closureDirection = MathService.RadiansToDegrees(System.Math.Atan(surveyItem.Easting/surveyItem.Northing));
 
-                preSurveyItem = surveyItem;
+                double closureDistance =
+                    System.Math.Sqrt(System.Math.Pow(surveyItem.Easting, 2) + System.Math.Pow(surveyItem.Northing, 2));
+
+                surveyItem.VerticalSection =
+                    MathService.CalculateRadiansCos(inputSurvey.VerticalSectionDirection - closureDirection) *
+                    closureDistance;preSurveyItem = surveyItem;
             }
             _context.SaveChanges();
         }

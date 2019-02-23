@@ -14,9 +14,9 @@ using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
 {
-    class NewSurveyViewModel : BindableBase, IUserControlViewModel
+    class NewSurveyViewModel : UserControlViewModelBase
     {
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
         private Survey _survey = new Survey();
         private SurveyTieIn _surveyTieIn = new SurveyTieIn();
         private ObservableCollection<Platform> _platforms;
@@ -27,7 +27,7 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
         private int _selectedWellboreId;
         private IEventAggregator _eventAggregator;
 
-        public NewSurveyViewModel(UnitOfWork unitOfWork, IEventAggregator eventAggregator)
+        public NewSurveyViewModel(IUnitOfWork unitOfWork, IEventAggregator eventAggregator)
         {
             _unitOfWork = unitOfWork;
             GetPlatforms();

@@ -14,15 +14,15 @@ using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
 {
-    class ImportSurveyViewModel : BindableBase, IUserControlViewModel
+    class ImportSurveyViewModel : UserControlViewModelBase
     {
         private string _filePath;
         private string _fileText;
         private ObservableCollection<SurveyItem> _importedSurveyItems;
         private int _selectedSurveyId;
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
-        public ImportSurveyViewModel(int selectedSurveyId, UnitOfWork unitOfWork)
+        public ImportSurveyViewModel(int selectedSurveyId, IUnitOfWork unitOfWork)
         {
             _selectedSurveyId = selectedSurveyId;
             _unitOfWork = unitOfWork;

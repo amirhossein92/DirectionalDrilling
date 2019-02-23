@@ -17,6 +17,7 @@
     xmlns:dashboard="clr-namespace:DirectionalDrilling.UI.UserControls.Dashboard"
     xmlns:graphV="clr-namespace:DirectionalDrilling.UI.UserControls.Graph.View"
     xmlns:graphVM="clr-namespace:DirectionalDrilling.UI.UserControls.Graph.ViewModel"
+    xmlns:schematic="clr-namespace:DirectionalDrilling.UI.UserControls.Schematic"
         x:Class="DirectionalDrilling.UI.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -47,6 +48,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type surveyManagementVM:ImportSurveyViewModel}">
             <surveyManagementV:ImportSurveyView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type schematic:WellProfileViewModel}">
+            <schematic:WellProfileView/>
         </DataTemplate>
 </Window.Resources>
     <Grid>
@@ -81,7 +85,7 @@
                         <dxb:BarButtonItem Content="3D View" />
                     </dxr:RibbonPageGroup>
                     <dxr:RibbonPageGroup Caption="Schematic">
-                        <dxb:BarButtonItem Content="Well Profile"/>
+                        <dxb:BarButtonItem Content="Well Profile" Command="{Binding WellProfile}"/>
                     </dxr:RibbonPageGroup>
                     <dxr:RibbonPageGroup Caption="Toolbar">
                         <dxb:BarButtonItem Content="Insert"/>
@@ -113,7 +117,11 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Name="HeaderTextBlock"  Text="{Binding Header, Mode=TwoWay}" VerticalAlignment="Center"/>
                                 <Button Content="X"
-                                        Command="{Binding CloseTab, Mode=TwoWay}"
+                                        Command="{Binding RelativeSource=
+                                            {RelativeSource FindAncestor, 
+                                            AncestorType={x:Type TabControl}}, 
+                                            Path=DataContext.CloseTab}"
+                                        CommandParameter="{Binding}"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
                                         Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>

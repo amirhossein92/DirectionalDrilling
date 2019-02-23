@@ -12,12 +12,12 @@ using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
 {
-    class AddPlatfromViewModel : BindableBase, IUserControlViewModel
+    class AddPlatfromViewModel : UserControlViewModelBase
     {
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
         private Platform _platform;
 
-        public AddPlatfromViewModel(UnitOfWork unitOfWork)
+        public AddPlatfromViewModel(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             GetPlatform();
