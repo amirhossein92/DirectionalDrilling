@@ -10,5 +10,9 @@ namespace DirectionalDrilling.UI.UserControls.Dashboard
 {
     public class DashboardViewModel : UserControlViewModelBase
     {
+        public DashboardViewModel(DashboardView dashboardView)
+        {
+            UserControlView = dashboardView;
+        }
     }
 }

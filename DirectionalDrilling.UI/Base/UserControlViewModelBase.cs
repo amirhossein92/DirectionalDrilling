@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DirectionalDrilling.UI.Events;
+using Humanizer;
+using Prism.Events;
 
 namespace DirectionalDrilling.UI.Base
 {
     public abstract class UserControlViewModelBase : Prism.Mvvm.BindableBase
     {
-        public UserControlViewModelBase()
-        {
-        }
-
+        protected IEventAggregator EventAggregator;
+        
         private UserControlViewBase _userControlView;
         public UserControlViewBase UserControlView
         {
             get => _userControlView;
-            set
+            protected set
             {
                 SetProperty(ref _userControlView, value);
                 _userControlView.DataContext = this;
@@ -24,6 +25,15 @@ namespace DirectionalDrilling.UI.Base
             }
         }
 
+        protected void CloseTab()
+        {
+            EventAggregator.GetEvent<CloseTabEvent>().Publish();
+        }
+
+        protected void RefreshTreeListData()
+        {
+            EventAggregator.GetEvent<TreeListDataChangedEvent>().Publish();
+        }
 
     }
 }

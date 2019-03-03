@@ -4,55 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DirectionalDrilling.UI"
+        xmlns:converter="clr-namespace:DirectionalDrilling.UI.Converter"
         xmlns:Custom="http://infragistics.com/Ribbon"
         xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
         xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-    xmlns:userControls="clr-namespace:DirectionalDrilling.UI.UserControls"
-    xmlns:surveyManagementV="clr-namespace:DirectionalDrilling.UI.UserControls.SurveyManagement.View"
-    xmlns:surveyManagementVM="clr-namespace:DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel"
-    xmlns:newProjectsV="clr-namespace:DirectionalDrilling.UI.UserControls.NewProjects.View"
-    xmlns:newProjectsVM="clr-namespace:DirectionalDrilling.UI.UserControls.NewProjects.ViewModel"
-    xmlns:surveySelectionTreeList="clr-namespace:DirectionalDrilling.UI.UserControls.SurveySelectionTreeList"
-    xmlns:dashboard="clr-namespace:DirectionalDrilling.UI.UserControls.Dashboard"
-    xmlns:graphV="clr-namespace:DirectionalDrilling.UI.UserControls.Graph.View"
-    xmlns:graphVM="clr-namespace:DirectionalDrilling.UI.UserControls.Graph.ViewModel"
-    xmlns:schematic="clr-namespace:DirectionalDrilling.UI.UserControls.Schematic"
         x:Class="DirectionalDrilling.UI.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Window.DataContext>
-        <local:MainWindowViewModel/>
-    </Window.DataContext>
     <Window.Resources>
-        <DataTemplate DataType="{x:Type surveySelectionTreeList:SurveySelectionTreeListViewModel}">
-            <surveySelectionTreeList:SurveySelectionTreeListView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type surveyManagementVM:ManageSurveyViewModel}">
-            <surveyManagementV:ManageSurveyView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type newProjectsVM:AddPlatfromViewModel}">
-            <newProjectsV:AddPlatfromView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type newProjectsVM:AddWellViewModel}">
-            <newProjectsV:AddWellView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type dashboard:DashboardViewModel}">
-            <dashboard:DashboardView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type surveyManagementVM:NewSurveyViewModel}">
-            <surveyManagementV:NewSurveyView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type graphVM:SectionViewModel}">
-            <graphV:SectionView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type surveyManagementVM:ImportSurveyViewModel}">
-            <surveyManagementV:ImportSurveyView/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type schematic:WellProfileViewModel}">
-            <schematic:WellProfileView/>
-        </DataTemplate>
-</Window.Resources>
+        <converter:ViewModelConverter x:Key="ViewModelConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -78,6 +40,7 @@
                             </dxb:BarEditItem.EditSettings>
                         </dxb:BarEditItem>
                         <dxb:BarButtonItem Content="Manage Survey" Command="{Binding ManageSurvey}"/>
+                        <dxb:BarButtonItem Content="Edit Survey" Command="{Binding EditSurvey}"/>
                     </dxr:RibbonPageGroup>
                     <dxr:RibbonPageGroup Caption="Graph">
                         <dxb:BarButtonItem Content="Section View" Command="{Binding SectionView}"/>
@@ -108,10 +71,10 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ContentControl Grid.Column="0" Content="{Binding TreeListViewModel}"/>
+                <ContentControl Grid.Column="0" Content="{Binding TreeListView}"/>
                 <TabControl Grid.Column="1" 
-                            ItemsSource="{Binding CurrentViewModels}"
-                            SelectedItem="{Binding CurrentViewModel, Mode=TwoWay}">
+                            ItemsSource="{Binding CurrentViews}"
+                            SelectedItem="{Binding CurrentView, Mode=TwoWay}">
                     <TabControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">

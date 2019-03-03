@@ -97,9 +97,9 @@ namespace DirectionalDrilling.DataAccess.Survey
             };
             foreach (var surveyItem in surveyItems.OrderBy(item => item.MeasuredDepth))
             {
-                var d1 = MathService.CalculateRadiansCos(surveyItem.Inclination - preSurveyItem.Inclination) -
-                             MathService.CalculateRadiansSin(surveyItem.Inclination) * MathService.CalculateRadiansSin(preSurveyItem.Inclination) *
-                             (1 - MathService.CalculateRadiansCos(surveyItem.Azimuth - preSurveyItem.Azimuth));
+                var d1 = MathService.CosDegree(surveyItem.Inclination - preSurveyItem.Inclination) -
+                             MathService.SinDegree(surveyItem.Inclination) * MathService.SinDegree(preSurveyItem.Inclination) *
+                             (1 - MathService.CosDegree(surveyItem.Azimuth - preSurveyItem.Azimuth));
                 double d2;
                 if (System.Math.Abs(d1) < .0001)
                     d2 = MathService.DegreesToRadians(90);
@@ -113,30 +113,129 @@ namespace DirectionalDrilling.DataAccess.Survey
                     fc = 2 / d2 * System.Math.Tan(d2 / 2);
 
                 surveyItem.TrueVerticalDepth = preSurveyItem.TrueVerticalDepth + (surveyItem.MeasuredDepth - preSurveyItem.MeasuredDepth) / 2
-                                       * fc * (MathService.CalculateRadiansCos(preSurveyItem.Inclination) + MathService.CalculateRadiansCos(surveyItem.Inclination));
+                                       * fc * (MathService.CosDegree(preSurveyItem.Inclination) + MathService.CosDegree(surveyItem.Inclination));
 
                 surveyItem.Northing = preSurveyItem.Northing + (surveyItem.MeasuredDepth - preSurveyItem.MeasuredDepth) / 2 * fc
-                                                                                                      * (MathService.CalculateRadiansSin(surveyItem.Inclination) * MathService.CalculateRadiansCos(surveyItem.Azimuth) +
-                                                                                                         MathService.CalculateRadiansSin(preSurveyItem.Inclination) * MathService.CalculateRadiansCos(preSurveyItem.Azimuth));
+                                                                                                      * (MathService.SinDegree(surveyItem.Inclination) * MathService.CosDegree(surveyItem.Azimuth) +
+                                                                                                         MathService.SinDegree(preSurveyItem.Inclination) * MathService.CosDegree(preSurveyItem.Azimuth));
 
                 surveyItem.Easting = preSurveyItem.Easting + (surveyItem.MeasuredDepth - preSurveyItem.MeasuredDepth) / 2 * fc
-                                                                                                      * (MathService.CalculateRadiansSin(surveyItem.Inclination) * MathService.CalculateRadiansSin(surveyItem.Azimuth) +
-                                                                                                         MathService.CalculateRadiansSin(preSurveyItem.Inclination) * MathService.CalculateRadiansSin(preSurveyItem.Azimuth));
+                                                                                                      * (MathService.SinDegree(surveyItem.Inclination) * MathService.SinDegree(surveyItem.Azimuth) +
+                                                                                                         MathService.SinDegree(preSurveyItem.Inclination) * MathService.SinDegree(preSurveyItem.Azimuth));
 
                 double closureDirection;
                 if (surveyItem.Northing < 0.00001 && surveyItem.Northing > -0.00001)
                     closureDirection = 90;
                 else
-                    closureDirection = MathService.RadiansToDegrees(System.Math.Atan(surveyItem.Easting/surveyItem.Northing));
+                    closureDirection = MathService.RadiansToDegrees(System.Math.Atan(surveyItem.Easting / surveyItem.Northing));
 
                 double closureDistance =
                     System.Math.Sqrt(System.Math.Pow(surveyItem.Easting, 2) + System.Math.Pow(surveyItem.Northing, 2));
 
                 surveyItem.VerticalSection =
-                    MathService.CalculateRadiansCos(inputSurvey.VerticalSectionDirection - closureDirection) *
-                    closureDistance;preSurveyItem = surveyItem;
+                    MathService.CosDegree(inputSurvey.VerticalSectionDirection - closureDirection) *
+                    closureDistance; preSurveyItem = surveyItem;
             }
             _context.SaveChanges();
+        }
+
+        public string InterpolateByMdToTvd(int inputSurveyId, double interpolationMd)
+        {
+            var inputSurvey = GetSurveyById(inputSurveyId);
+            ISurveyItemService surveyItemService = new SurveyItemService(_context);
+            var surveyItems = surveyItemService.GetSurveyItemsBySurveyId(inputSurveyId);
+
+            int i = 0;
+            while (interpolationMd > surveyItems[i].MeasuredDepth)
+            {
+                i++;
+            }
+
+            double beta = System.Math.Acos(
+                (
+                    (MathService.SinDegree(surveyItems[i - 1].Inclination)
+                     * MathService.SinDegree(surveyItems[i].Inclination))
+                    * (MathService.SinDegree(surveyItems[i - 1].Azimuth)
+                       * MathService.SinDegree(surveyItems[i].Azimuth)
+                       + MathService.CosDegree(surveyItems[i - 1].Azimuth)
+                       * MathService.CosDegree(surveyItems[i].Azimuth)))
+                + (MathService.CosDegree(surveyItems[i - 1].Inclination)
+                   * MathService.CosDegree(surveyItems[i].Inclination)));
+            double k = beta / 30;
+
+            double resultInclination, ni, t1i, ti, cosazp = 0, resultAzimuth;
+
+            if (k == 0)
+            {
+                resultInclination = surveyItems[i].Inclination;
+            }
+            else
+            {
+                resultInclination = MathService.RadiansToDegrees(System.Math.Acos(
+                    MathService.CosDegree(surveyItems[i - 1].Inclination)
+                    * System.Math.Cos(k * (interpolationMd - surveyItems[i - 1].MeasuredDepth))
+                    + System.Math.Sin(k * (interpolationMd - surveyItems[i - 1].MeasuredDepth))
+                    * (MathService.CosDegree(surveyItems[i].Inclination)
+                       - MathService.CosDegree(surveyItems[i - 1].Inclination)
+                       * System.Math.Cos(beta)) / System.Math.Sin(beta)));
+
+                ni = (MathService.SinDegree(surveyItems[i].Inclination)
+                      * MathService.CosDegree(surveyItems[i].Azimuth)
+                      - MathService.SinDegree(surveyItems[i - 1].Inclination)
+                      * MathService.CosDegree(surveyItems[i - 1].Azimuth)
+                      * System.Math.Cos(beta)) / System.Math.Sin(beta);
+
+                t1i = MathService.SinDegree(surveyItems[i - 1].Inclination)
+                      * MathService.CosDegree(surveyItems[i - 1].Azimuth);
+
+                ti = t1i * System.Math.Cos(k * (interpolationMd - surveyItems[i - 1].MeasuredDepth))
+                     + ni * System.Math.Sin(k * (interpolationMd - surveyItems[i - 1].MeasuredDepth));
+
+                cosazp = ti / MathService.SinDegree(resultInclination);
+            }
+
+            if (cosazp > 0.999 && cosazp < 1.001)
+            {
+                resultAzimuth = 0;
+            }
+            else
+            {
+                resultAzimuth = MathService.RadiansToDegrees(System.Math.Acos(cosazp));
+            }
+            if (((surveyItems[i - 1].Azimuth + surveyItems[i].Azimuth) / 2) > 180 && ((surveyItems[i - 1].Azimuth + surveyItems[i].Azimuth) / 2) < 360)
+            {
+                resultAzimuth = 360 - resultAzimuth;
+            }
+
+            if (resultAzimuth < 0.001)
+            {
+                resultAzimuth = 0;
+            }
+            if (resultInclination < 0.001)
+            {
+                resultInclination = 0;
+            }
+
+            var d1 = MathService.CosDegree(resultInclination - surveyItems[i - 1].Inclination) -
+                     MathService.SinDegree(resultInclination) * MathService.SinDegree(surveyItems[i - 1].Inclination) *
+                     (1 - MathService.CosDegree(resultAzimuth - surveyItems[i - 1].Azimuth));
+            double d2;
+            if (System.Math.Abs(d1) < .0001)
+                d2 = MathService.DegreesToRadians(90);
+            else
+                d2 = System.Math.Atan(System.Math.Sqrt(System.Math.Pow(1 / d1, 2) - 1));
+
+            double fc;
+            if (System.Math.Abs(d2) < .0001)
+                fc = 1;
+            else
+                fc = 2 / d2 * System.Math.Tan(d2 / 2);
+
+            var resultTrueVerticalDepth = surveyItems[i - 1].TrueVerticalDepth + (interpolationMd - surveyItems[i - 1].MeasuredDepth) / 2
+                                           * fc * (MathService.CosDegree(surveyItems[i - 1].Inclination) + MathService.CosDegree(resultInclination));
+
+            return $"{resultTrueVerticalDepth:N} / {resultInclination:N} / {resultAzimuth:N}";
+
         }
     }
 }

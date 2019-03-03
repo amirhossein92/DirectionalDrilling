@@ -19,5 +19,6 @@ namespace DirectionalDrilling.DataAccess.Survey
         // Calculation
         void MinimumCurvatureMethod(int inputSurveyId);
 
+        string InterpolateByMdToTvd(int inputSurveyId, double interpolationMd);
     }
 }

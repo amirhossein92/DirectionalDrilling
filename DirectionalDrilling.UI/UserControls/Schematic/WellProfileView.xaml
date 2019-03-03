@@ -1,4 +1,4 @@
-﻿<UserControl xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+﻿<base:UserControlViewBase xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:DirectionalDrilling.UI.UserControls.Schematic"
              xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"  x:Class="DirectionalDrilling.UI.UserControls.Schematic.WellProfileView"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                                            xmlns:base="clr-namespace:DirectionalDrilling.UI.Base"
+                                            x:Class="DirectionalDrilling.UI.UserControls.Schematic.WellProfileView"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <i:Interaction.Triggers>
@@ -118,6 +120,7 @@
                             <Button Content="Add" Command="{Binding AddFormation}"/>
                             <Button Content="Remove" Command="{Binding DeleteFormation}"/>
                             <Button Content="Export" Click="Export_OnClick"/>
+                            <ComboBox ItemsSource="{Binding ComboBoxSource}" SelectedItem="{Binding SelectedItem}"/>
                         </StackPanel>
                         <DataGrid ItemsSource="{Binding Formations, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   SelectedItem="{Binding SelectedFormation}"
@@ -140,4 +143,5 @@
             </dxdo:LayoutGroup>
         </dxdo:DockLayoutManager>
     </Grid>
-</UserControl>
+</base:UserControlViewBase>
+

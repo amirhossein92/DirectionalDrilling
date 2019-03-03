@@ -8,12 +8,12 @@ namespace DirectionalDrilling.DataAccess.Math
 {
     public class MathService : IMathService
     {
-        public static double CalculateRadiansCos(double degrees)
+        public static double CosDegree(double degrees)
         {
             return System.Math.Cos(DegreesToRadians(degrees));
         }
 
-        public static double CalculateRadiansSin(double degrees)
+        public static double SinDegree(double degrees)
         {
             return System.Math.Sin(DegreesToRadians(degrees));
         }

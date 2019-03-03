@@ -65,9 +65,15 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Humanizer, Version=2.5.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Humanizer.Core.2.5.16\lib\netstandard2.0\Humanizer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="Prism, Version=7.1.0.431, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.7.1.0.431\lib\net45\Prism.dll</HintPath>
@@ -104,6 +110,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Base\BindableBase.cs" />
+    <Compile Include="Base\IEdittableUserControlViewModel.cs" />
     <Compile Include="Base\Report\DDLabelValue.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -120,12 +127,17 @@
       <DependentUpon>XtraReportBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Converter\ViewModelConverter.cs" />
     <Compile Include="DataProviders\SectionViewGraph.cs" />
     <Compile Include="DataProviders\SurveyGraphItem.cs" />
     <Compile Include="DataProviders\TreeListLookUpItem.cs" />
     <Compile Include="Events\CloseTabEvent.cs" />
     <Compile Include="Events\OpenReportEvent.cs" />
+    <Compile Include="Events\OpenWindowByViewModelEvent.cs" />
+    <Compile Include="Events\OpenWindowForEditByViewModelEvent.cs" />
+    <Compile Include="Events\TreeListDataChangedEvent.cs" />
     <Compile Include="Events\TreeListSelectionChangeEvent.cs" />
+    <Compile Include="Ninject\KernelBindings.cs" />
     <Compile Include="UserControls\Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
@@ -134,9 +146,21 @@
     <Compile Include="UserControls\Graph\View\SectionView.xaml.cs">
       <DependentUpon>SectionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\NewProjects\ViewModel\EditWellboreViewModel.cs" />
+    <Compile Include="UserControls\NewProjects\ViewModel\EditWellViewModel.cs" />
+    <Compile Include="UserControls\NewProjects\ViewModel\EditPlatfromViewModel.cs" />
     <Compile Include="UserControls\NewProjects\ViewModel\AddPlatfromViewModel.cs" />
     <Compile Include="UserControls\NewProjects\ViewModel\AddWellboreViewModel.cs" />
     <Compile Include="UserControls\NewProjects\ViewModel\AddWellViewModel.cs" />
+    <Compile Include="UserControls\NewProjects\View\EditWellboreView.xaml.cs">
+      <DependentUpon>EditWellboreView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\NewProjects\View\EditWellView.xaml.cs">
+      <DependentUpon>EditWellView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\NewProjects\View\EditPlatfromView.xaml.cs">
+      <DependentUpon>EditPlatfromView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\NewProjects\View\AddPlatfromView.xaml.cs">
       <DependentUpon>AddPlatfromView.xaml</DependentUpon>
     </Compile>
@@ -158,12 +182,16 @@
     <Compile Include="UserControls\Schematic\WellProfileViewModel.cs" />
     <Compile Include="UserControls\SurveyManagement\ViewModel\ImportSurveyViewModel.cs" />
     <Compile Include="UserControls\SurveyManagement\ViewModel\ManageSurveyViewModel.cs" />
+    <Compile Include="UserControls\SurveyManagement\ViewModel\EditSurveyViewModel.cs" />
     <Compile Include="UserControls\SurveyManagement\ViewModel\NewSurveyViewModel.cs" />
     <Compile Include="UserControls\SurveyManagement\View\ImportSurveyView.xaml.cs">
       <DependentUpon>ImportSurveyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SurveyManagement\View\ManageSurveyView.xaml.cs">
       <DependentUpon>ManageSurveyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SurveyManagement\View\EditSurveyView.xaml.cs">
+      <DependentUpon>EditSurveyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SurveyManagement\View\NewSurveyView.xaml.cs">
       <DependentUpon>NewSurveyView.xaml</DependentUpon>
@@ -194,6 +222,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\NewProjects\View\EditWellboreView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\NewProjects\View\EditWellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\NewProjects\View\EditPlatfromView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\NewProjects\View\AddPlatfromView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -217,6 +257,10 @@
     <Page Include="UserControls\SurveyManagement\View\ManageSurveyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SurveyManagement\View\EditSurveyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\SurveyManagement\View\NewSurveyView.xaml">
       <SubType>Designer</SubType>

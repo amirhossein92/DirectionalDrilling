@@ -12,17 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DirectionalDrilling.UI.Base;
 
 namespace DirectionalDrilling.UI.UserControls.NewProjects.View
 {
     /// <summary>
     /// Interaction logic for AddWellboreView.xaml
     /// </summary>
-    public partial class AddWellboreView : UserControl
+    public partial class AddWellboreView : UserControlViewBase
     {
         public AddWellboreView()
         {
             InitializeComponent();
+        }
+
+        public override void Instantiated()
+        {
         }
     }
 }

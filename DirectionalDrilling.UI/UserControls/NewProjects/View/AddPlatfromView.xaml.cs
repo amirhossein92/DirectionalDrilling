@@ -12,17 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DirectionalDrilling.UI.Base;
 
 namespace DirectionalDrilling.UI.UserControls.NewProjects.View
 {
     /// <summary>
     /// Interaction logic for AddPlatfromView.xaml
     /// </summary>
-    public partial class AddPlatfromView : UserControl
+    public partial class AddPlatfromView : UserControlViewBase
     {
         public AddPlatfromView()
         {
             InitializeComponent();
+        }
+
+        public override void Instantiated()
+        {
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

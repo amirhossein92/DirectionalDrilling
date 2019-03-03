@@ -18,6 +18,7 @@ using DevExpress.Xpf.Printing;
 using DevExpress.XtraPrinting;
 using DirectionalDrilling.DataAccess.Report;
 using DirectionalDrilling.DataAccess.Survey;
+using DirectionalDrilling.UI.Base;
 using DirectionalDrilling.UI.UserControls.Graph.ViewModel;
 using DirectionalDrilling.UI.UserControls.Report;
 
@@ -26,12 +27,17 @@ namespace DirectionalDrilling.UI.UserControls.Graph.View
     /// <summary>
     /// Interaction logic for SectionView.xaml
     /// </summary>
-    public partial class SectionView : UserControl
+    public partial class SectionView : UserControlViewBase
     {
 
         public SectionView()
         {
             InitializeComponent();
+        }
+
+        public override void Instantiated()
+        {
+            
         }
 
         private void ExportedPdf_OnClick(object sender, RoutedEventArgs e)
@@ -62,5 +68,6 @@ namespace DirectionalDrilling.UI.UserControls.Graph.View
         {
             ChartControl.ShowPrintPreview(this, "SectionView", "Title - Section View", PrintSizeMode.Stretch);
         }
+
     }
 }

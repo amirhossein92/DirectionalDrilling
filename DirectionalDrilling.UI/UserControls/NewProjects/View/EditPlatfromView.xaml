@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:DirectionalDrilling.UI.UserControls.NewProjects.View"
              xmlns:Models="clr-namespace:DirectionalDrilling.Model.Models;assembly=DirectionalDrilling.Model"
              xmlns:base="clr-namespace:DirectionalDrilling.UI.Base"
-             x:Class="DirectionalDrilling.UI.UserControls.NewProjects.View.AddPlatfromView"
+             x:Class="DirectionalDrilling.UI.UserControls.NewProjects.View.EditPlatfromView"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -15,7 +15,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Add Platform" HorizontalAlignment="Center" FontSize="24"/>
+        <TextBlock Text="Edit Platform" HorizontalAlignment="Center" FontSize="24"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
             <Label VerticalAlignment="Center"
                    Margin="3" HorizontalAlignment="Left"

@@ -13,7 +13,8 @@ namespace DirectionalDrilling.DataStorage.Configuration
         public SurveyEntityConfiguration()
         {
             HasRequired(s => s.SurveyTieIn)
-                .WithRequiredPrincipal(si => si.Survey);
+                .WithRequiredPrincipal(si => si.Survey)
+                .WillCascadeOnDelete(true);
         }
     }
 }

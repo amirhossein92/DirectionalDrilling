@@ -8,6 +8,13 @@ namespace DirectionalDrilling.UI.Base
 {
     public class TabItemBase : Prism.Mvvm.BindableBase
     {
+        private int _id;
+        public int Id
+        {
+            get => _id;
+            set => SetProperty(ref _id, value);
+        }
+
         private string _header;
         public string Header
         {
@@ -21,8 +28,9 @@ namespace DirectionalDrilling.UI.Base
             set => SetProperty(ref _content, value);
         }
 
-        public TabItemBase(string header, object content)
+        public TabItemBase(int id, string header, object content)
         {
+            Id = id;
             Header = header;
             Content = content;
         }

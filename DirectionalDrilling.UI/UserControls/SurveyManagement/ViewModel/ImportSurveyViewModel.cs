@@ -9,6 +9,7 @@ using DirectionalDrilling.DataAccess;
 using DirectionalDrilling.Model.Models;
 using DirectionalDrilling.UI.Base;
 using DirectionalDrilling.UI.Commands;
+using DirectionalDrilling.UI.UserControls.SurveyManagement.View;
 using Microsoft.Win32;
 using BindableBase = Prism.Mvvm.BindableBase;
 
@@ -22,8 +23,11 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
         private int _selectedSurveyId;
         private IUnitOfWork _unitOfWork;
 
-        public ImportSurveyViewModel(int selectedSurveyId, IUnitOfWork unitOfWork)
+        public ImportSurveyViewModel(ImportSurveyView importSurveyView,
+            int selectedSurveyId,
+            IUnitOfWork unitOfWork)
         {
+            UserControlView = importSurveyView;
             _selectedSurveyId = selectedSurveyId;
             _unitOfWork = unitOfWork;
 

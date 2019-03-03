@@ -1,41 +1,56 @@
-﻿<base:UserControlViewBase
+﻿<base:UserControlViewBase x:Class="DirectionalDrilling.UI.UserControls.NewProjects.View.EditWellboreView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DirectionalDrilling.UI.UserControls.NewProjects.View"
-             xmlns:Models="clr-namespace:DirectionalDrilling.Model.Models;assembly=DirectionalDrilling.Model"
              xmlns:base="clr-namespace:DirectionalDrilling.UI.Base"
-             x:Class="DirectionalDrilling.UI.UserControls.NewProjects.View.AddWellView"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
-    <UserControl.Resources>
-        <CollectionViewSource x:Key="wellViewSource" d:DesignSource="{d:DesignInstance {x:Type Models:Well}, CreateList=True}"/>
-    </UserControl.Resources>
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Add Well" HorizontalAlignment="Center" FontSize="24"/>
+        <TextBlock Text="Edit Wellbore" HorizontalAlignment="Center" FontSize="24"/>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Center">
-                <Label Content="Well Name: " HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <Label Content="Wellbore Name: " HorizontalAlignment="Left" VerticalAlignment="Center" Width="100"/>
                 <TextBox HorizontalAlignment="Left"
-                         Text="{Binding Well.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                         Text="{Binding Wellbore.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                          VerticalAlignment="Center" 
                          Width="200"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
                 <Label Content="Platform: " 
                        HorizontalAlignment="Left" 
-                       VerticalAlignment="Center"/>
+                       VerticalAlignment="Center"
+                       Width="100"/>
                 <ComboBox ItemsSource="{Binding Platforms}"
                           DisplayMemberPath="Name"
                           SelectedValuePath="Id"
-                          SelectedValue="{Binding Well.PlatformId, Mode=TwoWay}"
+                          SelectedValue="{Binding SelectedPlatformId, Mode=TwoWay}"
+                          HorizontalAlignment="Right"
+                          Height="Auto"
+                          VerticalAlignment="Center" Width="200">
+                    <ComboBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </ComboBox.ItemsPanel>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Label Content="Well: " 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center" Width="100"/>
+                <ComboBox ItemsSource="{Binding Wells}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          SelectedValue="{Binding Wellbore.WellId, Mode=TwoWay}"
                           HorizontalAlignment="Left"
                           Height="Auto"
                           VerticalAlignment="Center" Width="200">
@@ -45,6 +60,14 @@
                         </ItemsPanelTemplate>
                     </ComboBox.ItemsPanel>
                 </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Center">
+                <Label Content="Description: " HorizontalAlignment="Left" VerticalAlignment="Center" Width="100"/>
+                <TextBox HorizontalAlignment="Left"
+                         Text="{Binding Wellbore.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                         VerticalAlignment="Center" 
+                         Width="200"/>
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">

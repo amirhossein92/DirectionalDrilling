@@ -25,7 +25,7 @@ namespace DirectionalDrilling.UI.UserControls.SurveySelectionTreeList
         private int _selectedSurveyId;
         private TreeListLookUpItem _selectedSurvey;
 
-        public SurveySelectionTreeListViewModel(SurveySelectionTreeListView surveySelectionTreeListView, 
+        public SurveySelectionTreeListViewModel(SurveySelectionTreeListView surveySelectionTreeListView,
             IEventAggregator eventAggregator,
             IUnitOfWork unitOfWork)
         {
@@ -37,9 +37,13 @@ namespace DirectionalDrilling.UI.UserControls.SurveySelectionTreeList
 
             LoadSurveyList();
 
+            DeleteCommand = new RelayCommand(OnDeleteCommand, CanDeleteCommand);
             RefreshData = new RelayCommand(OnRefreshData);
         }
 
+        public RelayCommand AddCommand { get; private set; }
+        public RelayCommand DeleteCommand { get; private set; }
+        public RelayCommand RefreshData { get; private set; }
 
         public ObservableCollection<TreeListLookUpItem> SurveyList
         {
@@ -54,9 +58,13 @@ namespace DirectionalDrilling.UI.UserControls.SurveySelectionTreeList
         public TreeListLookUpItem SelectedSurvey
         {
             get => _selectedSurvey;
-            set => SetProperty(ref _selectedSurvey, value);
+            set
+            {
+                SetProperty(ref _selectedSurvey, value);
+                DeleteCommand.RaiseCanExecuteChanged();
+            }
+
         }
-        public RelayCommand RefreshData { get; private set; }
 
         public void LoadSurveyList()
         {
@@ -68,11 +76,11 @@ namespace DirectionalDrilling.UI.UserControls.SurveySelectionTreeList
 
             foreach (var platform in _unitOfWork.PlatformService.GetPlatforms())
             {
-                SurveyList.Add(new TreeListLookUpItem { Id = platformId, Name = platform.Name, ObjectRealId = platform.Id ,Status = TreeListStatus.IsPlatform });
+                SurveyList.Add(new TreeListLookUpItem { Id = platformId, Name = platform.Name, ObjectRealId = platform.Id, Status = TreeListStatus.IsPlatform });
 
                 foreach (var well in _unitOfWork.WellService.GetWells().Where(item => item.Platform.Id == platform.Id).ToList())
                 {
-                    SurveyList.Add(new TreeListLookUpItem { Id = wellId, Name = well.Name, ParentId = platformId,ObjectRealId=well.Id, Status = TreeListStatus.IsWell });
+                    SurveyList.Add(new TreeListLookUpItem { Id = wellId, Name = well.Name, ParentId = platformId, ObjectRealId = well.Id, Status = TreeListStatus.IsWell });
                     foreach (var wellbore in _unitOfWork.WellboreService.GetWellbores().Where(item => item.Well.Id == well.Id)
                         .ToList())
                     {
@@ -111,23 +119,54 @@ namespace DirectionalDrilling.UI.UserControls.SurveySelectionTreeList
 
         public void OnSelectionChanged()
         {
+            _eventAggregator.GetEvent<TreeListSelectionChangeEvent>().Publish(new TreeListSelectionItem(SelectedSurvey.Status, SelectedSurvey.ObjectRealId));
             if (SelectedSurvey.Status == TreeListStatus.IsSurvey)
             {
                 SelectedSurveyId = SelectedSurvey.ObjectRealId;
-                _eventAggregator.GetEvent<TreeListSelectionChangeEvent>().Publish(_selectedSurvey.ObjectRealId);
             }
-
-            if (SelectedSurvey.Status == TreeListStatus.IsPlatform)
-            {
-
-            }
-
 
         }
 
-        private void OnRefreshData()
+        private bool CanDeleteCommand()
         {
+            return SelectedSurvey != null;
+        }
+
+        private void OnDeleteCommand()
+        {
+            var dialogResult = MessageBox.Show($"The {SelectedSurvey.Name} is going to be deleted!\n Are You Sure???", "DeleteMe", MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+            if (dialogResult == DialogResult.Yes)
+            {
+                switch (SelectedSurvey.Status)
+                {
+                    case TreeListStatus.IsPlatform:
+                        var platform = _unitOfWork.PlatformService.GetPlatformById(SelectedSurvey.ObjectRealId);
+                        _unitOfWork.PlatformService.Delete(platform);
+                        break;
+                    case TreeListStatus.IsWell:
+                        var well = _unitOfWork.WellService.GetWellById(SelectedSurvey.ObjectRealId);
+                        _unitOfWork.WellService.Delete(well);
+                        break;
+                    case TreeListStatus.IsWellbore:
+                        var wellbore = _unitOfWork.WellboreService.GetWellboreById(SelectedSurvey.ObjectRealId);
+                        _unitOfWork.WellboreService.Delete(wellbore);
+                        break;
+                    case TreeListStatus.IsSurvey:
+                        var survey = _unitOfWork.SurveyService.GetSurveyById(SelectedSurvey.ObjectRealId);
+                        _unitOfWork.SurveyService.Delete(survey);
+                        break;
+                }
+            }
+
+            OnRefreshData();
+        }
+
+        public void OnRefreshData()
+        {
+            var selectedItem = SelectedSurvey;
             LoadSurveyList();
+            SelectedSurvey = selectedItem;
         }
 
 

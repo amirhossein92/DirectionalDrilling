@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:DirectionalDrilling.UI.UserControls.SurveyManagement.View"
              xmlns:Models="clr-namespace:DirectionalDrilling.Model.Models;assembly=DirectionalDrilling.Model"
              xmlns:base="clr-namespace:DirectionalDrilling.UI.Base"
-             x:Class="DirectionalDrilling.UI.UserControls.SurveyManagement.View.NewSurveyView"
+             x:Class="DirectionalDrilling.UI.UserControls.SurveyManagement.View.EditSurveyView"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <UserControl.Resources>
@@ -18,7 +18,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Add Survey" HorizontalAlignment="Center" FontSize="24"/>
+        <TextBlock Text="Edit Survey" HorizontalAlignment="Center" FontSize="24"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
             <Grid >
                 <Grid.ColumnDefinitions>

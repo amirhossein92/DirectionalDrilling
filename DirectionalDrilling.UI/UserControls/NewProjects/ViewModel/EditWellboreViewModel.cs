@@ -17,15 +17,15 @@ using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
 {
-    class AddWellboreViewModel : UserControlViewModelBase
+    class EditWellboreViewModel : UserControlViewModelBase, IEdittableUserControlViewModel
     {
         private IUnitOfWork _unitOfWork;
 
-        public AddWellboreViewModel(AddWellboreView addWellboreView,
+        public EditWellboreViewModel(EditWellboreView editWellboreView,
             IUnitOfWork unitOfWork,
             IEventAggregator eventAggregator)
         {
-            UserControlView = addWellboreView;
+            UserControlView = editWellboreView;
             _unitOfWork = unitOfWork;
             EventAggregator = eventAggregator;
 
@@ -72,6 +72,18 @@ namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
             }
         }
 
+        public void LoadData(int selectedId)
+        {
+            Wellbore = _unitOfWork.WellboreService.GetWellboreById(selectedId);
+            SelectedPlatformId = Wellbore.Well.PlatformId;
+            SelectedId = selectedId;
+            ObjectName = Wellbore.Name;
+
+        }
+
+        public string ObjectName { get; set; }
+        public int SelectedId { get; set; }
+
         private void GetPlatforms()
         {
             Platforms = new ObservableCollection<Platform>(_unitOfWork.PlatformService.GetPlatforms());
@@ -100,7 +112,7 @@ namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
 
         private void OnSave()
         {
-            _unitOfWork.WellboreService.Add(Wellbore);
+            _unitOfWork.WellboreService.Update(Wellbore);
 
             CloseTab();
             RefreshTreeListData();

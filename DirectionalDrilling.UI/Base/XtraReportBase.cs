@@ -16,6 +16,11 @@ namespace DirectionalDrilling.UI.Base
 
         }
 
+        public XtraReportBase()
+        {
+            InitializeComponent();
+        }
+
         public void UpdateHeaderData()
         {
             this.ReportTitleLabel.Text = ReportTitle;

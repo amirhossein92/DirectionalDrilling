@@ -18,6 +18,7 @@ using DirectionalDrilling.UI.Base;
 using DirectionalDrilling.UI.Commands;
 using DirectionalDrilling.UI.DataProviders;
 using DirectionalDrilling.UI.Events;
+using DirectionalDrilling.UI.UserControls.Graph.View;
 using DirectionalDrilling.UI.UserControls.Report;
 using Prism.Events;
 
@@ -30,10 +31,12 @@ namespace DirectionalDrilling.UI.UserControls.Graph.ViewModel
         private IUnitOfWork _unitOfWork;
         private IEventAggregator _eventAggregator;
 
-        public SectionViewModel(int selectedSurveyId,
+        public SectionViewModel(SectionView sectionView,
+            int selectedSurveyId,
             IUnitOfWork unitOfWork,
             IEventAggregator eventAggregator)
         {
+            UserControlView = sectionView;
             _selectedSurveyId = selectedSurveyId;
             _unitOfWork = unitOfWork;
             _eventAggregator = eventAggregator;

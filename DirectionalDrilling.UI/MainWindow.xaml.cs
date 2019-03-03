@@ -33,8 +33,17 @@ namespace DirectionalDrilling.UI
         public MainWindow()
         {
             InitializeComponent();
-            _mainWindowViewModel = (MainWindowViewModel) DataContext;
+        }
+
+        public void Instantiate()
+        {
             _mainWindowViewModel.ReportBaseAction += ReportBaseAction;
+        }
+
+        public MainWindowViewModel MainWindowViewModel
+        {
+            get => _mainWindowViewModel;
+            set => _mainWindowViewModel = value;
         }
 
         private void ReportBaseAction(XtraReportBase reportBase)

@@ -12,16 +12,21 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <dxg:TreeListControl ItemsSource="{Binding SurveyList}"
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Add" Margin="3" Command="{Binding AddCommand}"/>
+            <Button Content="Delete" Margin="3" Command="{Binding DeleteCommand}"/>
+        </StackPanel>
+        <dxg:TreeListControl Grid.Row="1"
+                             ItemsSource="{Binding SurveyList, Mode=TwoWay}"
                              AutoGenerateColumns="None" 
                              EnableSmartColumnsGeneration="False" 
                              HorizontalAlignment="Stretch" 
                              VerticalAlignment="Stretch"
-                             SelectedItem="{Binding SelectedSurvey}" 
-                             Grid.RowSpan="2">
+                             SelectedItem="{Binding SelectedSurvey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <dxg:TreeListControl.View>
                 <dxg:TreeListView x:Name="TreeListView" 
                                   AllowPerPixelScrolling="True" 
@@ -35,6 +40,6 @@
             </i:Interaction.Triggers>
             <dxg:TreeListColumn Header="Name" Binding="{Binding Name}" Width="*"/>
         </dxg:TreeListControl>
-        <Button Grid.Row="1" Content="Refresh Data" Command="{Binding RefreshData}"/>
+        <Button Grid.Row="2" Content="Refresh Data" Command="{Binding RefreshData}"/>
     </Grid>
 </base:UserControlViewBase>

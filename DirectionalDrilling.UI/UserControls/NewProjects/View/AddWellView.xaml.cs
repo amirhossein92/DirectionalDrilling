@@ -12,17 +12,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DirectionalDrilling.UI.Base;
 
 namespace DirectionalDrilling.UI.UserControls.NewProjects.View
 {
     /// <summary>
     /// Interaction logic for AddWellView.xaml
     /// </summary>
-    public partial class AddWellView : UserControl
+    public partial class AddWellView : UserControlViewBase
     {
         public AddWellView()
         {
             InitializeComponent();
+        }
+
+        public override void Instantiated()
+        {
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -36,5 +41,6 @@ namespace DirectionalDrilling.UI.UserControls.NewProjects.View
             // 	myCollectionViewSource.Source = your data
             // }
         }
+
     }
 }

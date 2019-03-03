@@ -26,12 +26,17 @@ namespace DirectionalDrilling.UI.UserControls.Schematic
         private Wellbore _selectedWellbore;
         private IUnitOfWork _unitOfWork;
 
-        public WellProfileViewModel(int selectedSurveyId, IUnitOfWork unitOfWork)
+        public WellProfileViewModel(WellProfileView wellProfileView,
+            int selectedSurveyId,
+            IUnitOfWork unitOfWork)
         {
+            UserControlView = wellProfileView;
             _unitOfWork = unitOfWork;
             _selectedSurveyId = selectedSurveyId;
             AddFormation = new RelayCommand(OnAddFormation);
             DeleteFormation = new RelayCommand(OnDeleteFormation);
+
+            SelectedItem = "MD";
         }
 
 
@@ -53,6 +58,20 @@ namespace DirectionalDrilling.UI.UserControls.Schematic
             set => SetProperty(ref _surveyItems, value);
         }
 
+        private ObservableCollection<string> _comboBoxSource;
+        public ObservableCollection<string> ComboBoxSource
+        {
+            get => _comboBoxSource;
+            set => SetProperty(ref _comboBoxSource, value);
+        }
+
+        private string _selectedItem;
+        public string SelectedItem
+        {
+            get => _selectedItem;
+            set => SetProperty(ref _selectedItem, value);
+        }
+
         public void LoadData()
         {
             _selectedWellbore = _unitOfWork.WellboreService.GetWellboreBySurveyId(_selectedSurveyId);
@@ -69,6 +88,12 @@ namespace DirectionalDrilling.UI.UserControls.Schematic
                 text += $"{surveyItem.VerticalSection}, {surveyItem.TrueVerticalDepth}{Environment.NewLine}";
 
             }
+
+            ComboBoxSource = new ObservableCollection<string>();
+            ComboBoxSource.Add("TVD");
+            ComboBoxSource.Add("MD");
+
+            
         }
 
         private void OnAddFormation()

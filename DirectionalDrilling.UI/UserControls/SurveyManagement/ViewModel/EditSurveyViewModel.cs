@@ -15,7 +15,7 @@ using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
 {
-    class NewSurveyViewModel : UserControlViewModelBase
+    class EditSurveyViewModel : UserControlViewModelBase, IEdittableUserControlViewModel
     {
         private IUnitOfWork _unitOfWork;
         private Survey _survey = new Survey();
@@ -28,18 +28,39 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
         private int _selectedWellboreId;
         private IEventAggregator _eventAggregator;
 
-        public NewSurveyViewModel(NewSurveyView newSurveyView,
-            IUnitOfWork unitOfWork, 
+        public EditSurveyViewModel(EditSurveyView view,
+            IUnitOfWork unitOfWork,
             IEventAggregator eventAggregator)
         {
-            UserControlView = newSurveyView;
+            UserControlView = view;
             _unitOfWork = unitOfWork;
+            EventAggregator = eventAggregator;
             GetPlatforms();
             _eventAggregator = eventAggregator;
 
             SaveCommand = new RelayCommand(OnSave, CanSave);
             CancelCommand = new RelayCommand(OnCancel);
         }
+
+
+
+        public RelayCommand SaveCommand { get; private set; }
+        public RelayCommand CancelCommand { get; private set; }
+
+        public void LoadData(int selectedId)
+        {
+            Survey = _unitOfWork.SurveyService.GetSurveyById(selectedId);
+            SurveyTieIn = Survey.SurveyTieIn;
+            SelectedWellboreId = Survey.WellboreId;
+            SelectedWellId = Survey.Wellbore.WellId;
+            SelectedPlatformId = Survey.Wellbore.Well.PlatformId;
+            SelectedId = selectedId;
+            ObjectName = Survey.Name;
+
+        }
+
+        public string ObjectName { get; set; }
+        public int SelectedId { get; set; }
 
         private void GetWellbores()
         {
@@ -58,8 +79,26 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
         }
 
 
-        public RelayCommand SaveCommand { get; private set; }
-        public RelayCommand CancelCommand { get; private set; }
+        private void OnCancel()
+        {
+            CloseTab();
+        }
+
+        private bool CanSave()
+        {
+            // TODO: Can Save Function
+            return (SelectedWellboreId != 0);
+        }
+
+        private void OnSave()
+        {
+            Survey.SurveyTieIn = SurveyTieIn;
+            Survey.WellboreId = SelectedWellboreId;
+            _unitOfWork.SurveyService.Update(Survey);
+
+            CloseTab();
+            RefreshTreeListData();
+        }
 
         public Survey Survey
         {
@@ -112,24 +151,6 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
                 SetProperty(ref _selectedWellboreId, value);
                 SaveCommand.RaiseCanExecuteChanged();
             }
-        }
-
-        private void OnCancel()
-        {
-            _eventAggregator.GetEvent<CloseTabEvent>().Publish();
-        }
-
-        private bool CanSave()
-        {
-            // TODO: Can Save Function
-            return (SelectedWellboreId != 0);
-        }
-
-        private void OnSave()
-        {
-            Survey.SurveyTieIn = SurveyTieIn;
-            Survey.WellboreId = SelectedWellboreId;
-            _unitOfWork.SurveyService.Add(Survey);
         }
     }
 }

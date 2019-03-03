@@ -12,17 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DirectionalDrilling.UI.Base;
 
 namespace DirectionalDrilling.UI.UserControls.SurveyManagement.View
 {
     /// <summary>
     /// Interaction logic for ImportSurveyView.xaml
     /// </summary>
-    public partial class ImportSurveyView : UserControl
+    public partial class ImportSurveyView : UserControlViewBase
     {
         public ImportSurveyView()
         {
             InitializeComponent();
+        }
+
+        public override void Instantiated()
+        {
+            
         }
     }
 }

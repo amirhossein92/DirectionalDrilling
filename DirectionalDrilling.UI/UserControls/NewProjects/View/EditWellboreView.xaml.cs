@@ -14,21 +14,20 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DirectionalDrilling.UI.Base;
 
-namespace DirectionalDrilling.UI.UserControls.Dashboard
+namespace DirectionalDrilling.UI.UserControls.NewProjects.View
 {
     /// <summary>
-    /// Interaction logic for DashboardView.xaml
+    /// Interaction logic for AddWellboreView.xaml
     /// </summary>
-    public partial class DashboardView : UserControlViewBase
+    public partial class EditWellboreView : UserControlViewBase
     {
-        public DashboardView()
+        public EditWellboreView()
         {
             InitializeComponent();
         }
 
         public override void Instantiated()
         {
-            
         }
     }
 }

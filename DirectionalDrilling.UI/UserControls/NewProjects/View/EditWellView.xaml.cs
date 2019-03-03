@@ -14,14 +14,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DirectionalDrilling.UI.Base;
 
-namespace DirectionalDrilling.UI.UserControls.SurveyManagement.View
+namespace DirectionalDrilling.UI.UserControls.NewProjects.View
 {
     /// <summary>
-    /// Interaction logic for NewSurveyView.xaml
+    /// Interaction logic for AddWellView.xaml
     /// </summary>
-    public partial class NewSurveyView : UserControlViewBase
+    public partial class EditWellView : UserControlViewBase
     {
-        public NewSurveyView()
+        public EditWellView()
         {
             InitializeComponent();
         }

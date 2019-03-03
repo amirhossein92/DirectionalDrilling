@@ -13,22 +13,28 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DevExpress.Xpf.Charts;
+using DirectionalDrilling.UI.Base;
 
 namespace DirectionalDrilling.UI.UserControls.Schematic
 {
     /// <summary>
     /// Interaction logic for WellProfileView.xaml
     /// </summary>
-    public partial class WellProfileView : UserControl
+    public partial class WellProfileView : UserControlViewBase
     {
         public WellProfileView()
         {
             InitializeComponent();
         }
 
+        public override void Instantiated()
+        {
+        }
+
         private void Export_OnClick(object sender, RoutedEventArgs e)
         {
             ChartControl.ShowPrintPreview(this, PrintSizeMode.Stretch);
         }
+
     }
 }

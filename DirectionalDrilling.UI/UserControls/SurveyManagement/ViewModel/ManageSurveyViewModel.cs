@@ -10,12 +10,13 @@ using DirectionalDrilling.Model.Models;
 using DirectionalDrilling.UI.Base;
 using DirectionalDrilling.UI.Commands;
 using DirectionalDrilling.UI.Events;
+using DirectionalDrilling.UI.UserControls.SurveyManagement.View;
 using Prism.Events;
 using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
 {
-    public class ManageSurveyViewModel : UserControlViewModelBase
+    public class ManageSurveyViewModel : UserControlViewModelBase, IEdittableUserControlViewModel
     {
         private string _header;
         private IUnitOfWork _unitOfWork;
@@ -27,23 +28,26 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
         private bool _isReadOnly = true;
         private SurveyItem _selectedSurveyItem;
 
-        public ManageSurveyViewModel(int selectedSurveyId, IUnitOfWork unitOfWork)
+        public ManageSurveyViewModel(ManageSurveyView manageSurveyView,
+            IUnitOfWork unitOfWork)
         {
+            UserControlView = manageSurveyView;
             _unitOfWork = unitOfWork;
-            _selectedSurveyId = selectedSurveyId;
 
             AddRow = new RelayCommand(OnAddRow, CanAddRow);
             DeleteRow = new RelayCommand(OnDeleteRow, CanDeleteRow);
             Calculate = new RelayCommand(OnCalculate);
             SaveCommand = new RelayCommand(OnSaveCommand, CanSave);
+            InterpolateCommand = new RelayCommand(OnInterpolate);
         }
-
 
 
         public RelayCommand AddRow { get; private set; }
         public RelayCommand DeleteRow { get; private set; }
         public RelayCommand Calculate { get; private set; }
         public RelayCommand SaveCommand { get; private set; }
+        public RelayCommand InterpolateCommand { get; private set; }
+
         public string Header
         {
             get => _header;
@@ -84,12 +88,40 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
             }
         }
 
-        public void LoadData()
+
+        private string _interpolationMD;
+        public string InterpolationMD
         {
+            get => _interpolationMD;
+            set => SetProperty(ref _interpolationMD, value);
+        }
+
+        private string _interpolationTVD;
+        public string InterpolationTVD
+        {
+            get => _interpolationTVD;
+            set => SetProperty(ref _interpolationTVD, value);
+        }
+
+        private void OnInterpolate()
+        {
+            double Md = Double.Parse(InterpolationMD);
+            InterpolationTVD = _unitOfWork.SurveyService.InterpolateByMdToTvd(SelectedSurveyId, Md);
+        }
+
+
+        public void LoadData(int selectedSurveyId)
+        {
+            _selectedSurveyId = selectedSurveyId;
             LoadSurveyItems(_selectedSurveyId);
             SurveyDescription = _unitOfWork.SurveyService.GetSurveyDescription(_selectedSurveyId);
             Header = _selectedSurveyId.ToString();
+            SelectedId = selectedSurveyId;
+            ObjectName = _unitOfWork.SurveyService.GetSurveyById(selectedSurveyId).Name;
         }
+
+        public string ObjectName { get; set; }
+        public int SelectedId { get; set; }
 
         private void LoadSurveyItems(int selectedSurveyId)
         {
@@ -100,9 +132,9 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
             }
         }
 
-        public void ChangeGridEdittable(bool CanEdit)
+        public void ChangeGridEdittable(bool canEdit)
         {
-            if (CanEdit)
+            if (canEdit)
             {
                 IsReadOnly = false;
             }
@@ -158,7 +190,7 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.ViewModel
         private void OnCalculate()
         {
             // TODO: Implement Calculate Button
-            _unitOfWork.SurveyService.MinimumCurvatureMethod(SelectedSurveyId);
+            _unitOfWork.SurveyService.MinimumCurvatureMethod(_selectedSurveyId);
         }
         }
 }

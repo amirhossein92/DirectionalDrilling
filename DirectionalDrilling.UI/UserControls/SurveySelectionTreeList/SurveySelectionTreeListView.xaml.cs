@@ -15,6 +15,7 @@ namespace DirectionalDrilling.UI.UserControls.SurveySelectionTreeList
 
         public override void Instantiated()
         {
-            }
+
+        }
     }
 }

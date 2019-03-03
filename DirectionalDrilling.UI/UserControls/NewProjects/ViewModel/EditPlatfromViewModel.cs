@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DevExpress.Data.Filtering.Helpers;
+using DevExpress.Mvvm.POCO;
 using DirectionalDrilling.DataAccess;
 using DirectionalDrilling.Model.Models;
 using DirectionalDrilling.UI.Base;
@@ -15,26 +16,24 @@ using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
 {
-    class AddPlatfromViewModel : UserControlViewModelBase
+    class EditPlatfromViewModel : UserControlViewModelBase, IEdittableUserControlViewModel
     {
         private IUnitOfWork _unitOfWork;
         private Platform _platform;
-        private IEventAggregator _eventAggregator;
+        //private IEventAggregator _eventAggregator;
 
-        public AddPlatfromViewModel(AddPlatfromView addPlatfromView,
+        public EditPlatfromViewModel(EditPlatfromView editPlatfromView,
             IUnitOfWork unitOfWork,
             IEventAggregator eventAggregator)
         {
-            _eventAggregator = eventAggregator;
-            UserControlView = addPlatfromView;
+            EventAggregator = eventAggregator;
+            UserControlView = editPlatfromView;
             _unitOfWork = unitOfWork;
             GetPlatform();
 
             SaveCommand = new RelayCommand(OnSaveCommand, CanSave);
             CancelCommand = new RelayCommand(OnCancelCommand);
         }
-
-
 
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand CancelCommand { get; private set; }
@@ -50,10 +49,15 @@ namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
             Platform = new Platform{Name = "Platform Jadid"};
         }
 
-        private void CloseTab()
+        public void LoadData(int selectedId)
         {
-            _eventAggregator.GetEvent<CloseTabEvent>().Publish();
+            Platform = _unitOfWork.PlatformService.GetPlatformById(selectedId);
+            SelectedId = selectedId;
+            ObjectName = Platform.Name;
         }
+
+        public string ObjectName { get; set; }
+        public int SelectedId { get; set; }
 
         private void OnCancelCommand()
         {
@@ -67,14 +71,13 @@ namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
 
         private void OnSaveCommand()
         {
-            if (Platform.Id == 0)
+            if (Platform.Id != 0)
             {
-                _unitOfWork.PlatformService.Add(Platform);
+                _unitOfWork.PlatformService.Update(Platform);
             }
 
             CloseTab();
             RefreshTreeListData();
         }
-
     }
 }

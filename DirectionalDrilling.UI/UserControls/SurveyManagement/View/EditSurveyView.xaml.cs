@@ -19,9 +19,9 @@ namespace DirectionalDrilling.UI.UserControls.SurveyManagement.View
     /// <summary>
     /// Interaction logic for NewSurveyView.xaml
     /// </summary>
-    public partial class NewSurveyView : UserControlViewBase
+    public partial class EditSurveyView : UserControlViewBase
     {
-        public NewSurveyView()
+        public EditSurveyView()
         {
             InitializeComponent();
         }

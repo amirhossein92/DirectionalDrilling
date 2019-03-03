@@ -14,16 +14,16 @@ using BindableBase = Prism.Mvvm.BindableBase;
 
 namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
 {
-    class AddWellViewModel : UserControlViewModelBase, IEdittableUserControlViewModel
+    class EditWellViewModel : UserControlViewModelBase, IEdittableUserControlViewModel
     {
         private IUnitOfWork _unitOfWork;
         private Well _well;
         private ObservableCollection<Platform> _platforms;
 
-        public AddWellViewModel(AddWellView addWellView,
+        public EditWellViewModel(EditWellView editWellView,
             IUnitOfWork unitOfWork)
         {
-            UserControlView = addWellView;
+            UserControlView = editWellView;
             _unitOfWork = unitOfWork;
             GetWell();
             GetPlatforms();
@@ -45,7 +45,7 @@ namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
             get => _well;
             set => SetProperty(ref _well, value);
         }
-
+        
         public void LoadData(int selectedId)
         {
             Well = _unitOfWork.WellService.GetWellById(selectedId);
@@ -53,7 +53,7 @@ namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
             ObjectName = Well.Name;
         }
 
-        public string ObjectName { get ; set; }
+        public string ObjectName { get; set; }
         public int SelectedId { get; set; }
 
         private void GetWell()
@@ -68,7 +68,7 @@ namespace DirectionalDrilling.UI.UserControls.NewProjects.ViewModel
 
         private void OnSaveCommand()
         {
-            _unitOfWork.WellService.Add(Well);
+            _unitOfWork.WellService.Update(Well);
             RefreshTreeListData();
             CloseTab();
         }

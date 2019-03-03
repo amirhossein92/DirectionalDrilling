@@ -9,7 +9,9 @@ namespace DirectionalDrilling.UI.WindowManagement
 {
     public interface IWindowManagementService
     {
+        void OpenWindowByViewModel<T>(int selectedSurveyId) where T : UserControlViewModelBase;
         void OpenWindowByViewModel<T>() where T : UserControlViewModelBase;
+        void OpenWindowForEditByViewModel<T>(int id) where T : UserControlViewModelBase;
 
     }
 }
